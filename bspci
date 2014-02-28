@@ -1,7 +1,0 @@
-#! /bin/dash
-
-while true ; do
-    read -p "> " -r line || break
-    set -- $line
-    bspc "$@"
-done

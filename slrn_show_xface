@@ -1,3 +1,0 @@
-#! /bin/dash
-
-show_xface slrn /tmp/slrn_xface

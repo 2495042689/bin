@@ -1,3 +1,0 @@
-#! /bin/dash
-
-xdo key -N Sxiv -n "$*" -k 27

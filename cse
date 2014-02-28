@@ -5,7 +5,7 @@ import sys
 import sqlite3
 from urllib.parse import quote
 
-DBPATH = os.path.join(os.environ['XDG_CONFIG_HOME'], 'chromium/Default/Web Data')
+DBPATH = os.path.join(os.environ['HOME'], 'Library/Application Support/Chromium/Default/Web Data')
 
 if len(sys.argv) < 3:
     sys.exit(1)

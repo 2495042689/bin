@@ -1,3 +1,0 @@
-#! /bin/dash
-
-ffplay -f v4l2 "$@"
