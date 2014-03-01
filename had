@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 [ $# -gt 0 ] && exit 1
 

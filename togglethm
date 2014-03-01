@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 current=$(readlink -nse "$XDG_COLORS_DIR/xresources")
 

@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 WORDS=$XDG_DATA_HOME/dicfr.txt
 

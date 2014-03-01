@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 set -- $(gm identify -format "%w %h" "$1")
 width=$1

@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 tmp_dir="$XDG_TMP_DIR"
 file_path=$3

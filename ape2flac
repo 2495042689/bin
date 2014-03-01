@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 green_echo() {
     if [ -t 1 ] ; then

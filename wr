@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 args=$@
 WEATHER_LOCATION=${args:-$WEATHER_CODE}

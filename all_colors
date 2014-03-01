@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 START_COLOR=0
 END_COLOR=255

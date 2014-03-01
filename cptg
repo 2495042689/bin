@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 while [ $# -ne 0 ]; do
     ext=${1##*.}

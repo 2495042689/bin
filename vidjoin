@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 ext=${1##*.}
 lst=$(mktemp)

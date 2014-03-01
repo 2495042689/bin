@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 URLS_DB="$XDG_DATA_HOME/urls.db"
 CONNECT_QUERY="sqlite3 $URLS_DB"

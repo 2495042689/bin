@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 CHUNK_LENGTH=8
 colors=$(cat | grep -o 'color[0-9]\+' | tr -d '[a-z]')

@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /usr/bin/env dash
 
 while [ $# -gt 0 ] ; do
     mime_type=$(file -L -b --mime-type "$1")
