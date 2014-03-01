@@ -30,7 +30,7 @@ while getopts 'hlaci:' opt ; do
 done
 
 shift $((OPTIND - 1))
-tmpout=$(mktemp)
+tmpout=$(mktemp /tmp/v.XXXX)
 
 num=$(sed -n 's:^> *\(.*'$@'.*\)$:\1:p' "$V_INFO" | tee "$tmpout" | wc -l)
 
@@ -41,14 +41,14 @@ elif [ $num -eq 0 ] ; then
         printf "%s\n" "No matches." >&2
     fi
 elif [ $pick_latest -eq 0 -o $num -eq 1 ] ; then
-    sed "s!^~!$HOME!" "$tmpout" | xargs -d '\n' dash -c $V_VIM' "$@" < /dev/tty' $V_VIM
+    sed "s!^~!$HOME!" "$tmpout" | tr '\n' '\0' | xargs -0 dash -c $V_VIM' "$@" < /dev/tty' $V_VIM
 else
     if [ $choose_index -eq 1 ] ; then
         nl -s ': ' -w 3 "$tmpout" | tac
         printf "%s" "? "
         read index
     fi
-    [ -n "$index" ] && head -n $index "$tmpout" | tail -n 1 | sed "s!^~!$HOME!" | xargs -d '\n' dash -c $V_VIM' "$@" < /dev/tty' $V_VIM
+    [ -n "$index" ] && head -n $index "$tmpout" | tail -n 1 | sed "s!^~!$HOME!" | tr '\n' '\0' | xargs -0 dash -c $V_VIM' "$@" < /dev/tty' $V_VIM
 fi
 
 rm "$tmpout"
