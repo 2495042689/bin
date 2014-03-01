@@ -4,7 +4,7 @@ for itm in *
 do
     if [ -h "$itm" ]
     then
-        target=$(readlink -fn "$itm")
+        target=$(readlink -n "$itm")
         if [ ! -e "$target" ]
         then
             echo "$itm -/-> $target"
