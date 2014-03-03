@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 if [ $# -gt 0 ] ; then
     bgtype=$1

@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 while [ $# -ne 0 ] ; do
     fla_dir=$(mktemp -d -t fla.XXX)

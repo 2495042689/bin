@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 if [ $# -eq 0 ] ; then
     printf "usage: %s [-H] TEXT_FILE ...\n" "${0##*/}"

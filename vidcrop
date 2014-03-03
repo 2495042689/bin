@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 top_padding=0
 bottom_padding=0

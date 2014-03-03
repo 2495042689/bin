@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 WORDS=$XDG_DATA_HOME/dicen.txt
 

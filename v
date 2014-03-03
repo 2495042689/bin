@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 V_INFO=${V_INFO:-"$HOME/.viminfo"}
 V_VIM=${V_VIM:-${EDITOR:-vim}}

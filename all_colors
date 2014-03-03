@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 START_COLOR=0
 END_COLOR=255

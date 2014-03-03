@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 git show-ref --dereference | sed -n 's:^\([^ ]\+\) refs/tags/\([^^]\+\)\^{}:\2 \1:p' | \
     { while read line ; do

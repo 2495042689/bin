@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 # $1 is the input file
 # $2 is the first page of the range to extract
 # $3 is the last page of the range to extract

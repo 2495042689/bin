@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 TEMPLATES_DIR="$XDG_DOTFILES_DIR/templates"
 COLOR_SCHEMES_DIR="$XDG_DOTFILES_DIR/color_schemes"

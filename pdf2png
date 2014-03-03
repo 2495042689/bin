@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 density=150
 background='16#ffffff'

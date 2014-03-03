@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 # gphoto2 --get-all-files 2> /dev/null
 

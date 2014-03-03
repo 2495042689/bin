@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 ext='jpg'
 area=360000

@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 usage() {
     printf '%s [-h|-d DOWNLOAD_DIR] start|stop\n' "${0##*/}"

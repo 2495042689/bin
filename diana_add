@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 dad start > /dev/null 2>&1
 diana add "$@"

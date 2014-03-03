@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 if ! [ -e "$XDG_TRASH_DIR" ] ; then
     printf "%s\n" "The 'XDG_TRASH_DIR' environment variable is not defined." >&2

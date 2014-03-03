@@ -1,4 +1,4 @@
-#! /usr/bin/env dash
+#! /bin/sh
 
 while [ $# -gt 0 ] ; do
     mv -v "$1" "$XDG_TRASH_DIR"
