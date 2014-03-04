@@ -17,7 +17,7 @@ fi
 printf "%s" "$bgtype" > "$HOME"/.conditions
 osascript - << END
 tell application "Terminal"
-	set default settings to settings set "Hemisu $bgtype"
-	set current settings of tabs of windows to settings set "Hemisu $bgtype"
+	set default settings to settings set "Theme $bgtype"
+	set current settings of tabs of windows to settings set "Theme $bgtype"
 end tell
 END

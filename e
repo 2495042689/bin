@@ -1,1 +1,3 @@
-editor
+#! /bin/sh
+
+$EDITOR "$@"
