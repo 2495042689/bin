@@ -20,7 +20,7 @@ FILENAME_MAX_LEN = 80
 FILENAME_TAIL_LEN = 5
 FILENAME_ELLIPSIS = '…'
 INFO_COMMAND = 'fileinfo'
-PREVIEW_COMMAND = 'open'
+PREVIEW_COMMAND = 'vp'
 MLDK_TEMP_DIR = expanduser('~/.mldonkey/temp')
 
 ACT_REQ_MAP = {'list'     : 'vd',
