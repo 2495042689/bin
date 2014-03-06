@@ -2,4 +2,4 @@
 
 [ $# -gt 0 ] && exit 1
 
-mlnet &
+caffeinate -i mlnet &
