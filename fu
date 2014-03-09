@@ -1,13 +1,14 @@
 #! /bin/sh
 
-tmpout=$(mktemp /tmp/fu.XXXX)
+# tmpout=$(mktemp /tmp/fu.XXXX)
 
-curl -s "http://www.commandlinefu.com/commands/matching/$@/$(printf "%s" "$@" | openssl base64)/plaintext" | grep -v "^# commandlinefu" > "$tmpout"
+# curl -s "http://www.commandlinefu.com/commands/matching/$@/$(printf "%s" "$@" | openssl base64)/plaintext" | grep -v "^# commandlinefu" > "$tmpout"
+curl -s "http://www.commandlinefu.com/commands/matching/$@/$(printf "%s" "$@" | openssl base64)/plaintext" | grep -v "^# commandlinefu"
 
-if [ -t 1 ] ; then
-    sed "s/^#.*/\033[1;30m&\033[0m/g" "$tmpout"
-else
-    cat "$tmpout"
-fi
+# if [ -t 1 ] ; then
+#     sed "s/^#.*/\033[1;30m&\033[0m/g" "$tmpout"
+# else
+#     cat "$tmpout"
+# fi
 
-rm "$tmpout"
+# rm "$tmpout"
