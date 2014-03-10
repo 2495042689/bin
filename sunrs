@@ -1,21 +1,24 @@
-#! /usr/bin/php
-<?php
-    $latitude = getenv('LATITUDE');
-    $longitude = getenv('LONGITUDE');
+#! /usr/bin/env python3
 
-    if ($argc == 3) {
-        $latitude = $argv[1];
-        $longitude = $argv[2];
-    } elseif ($argc > 1) {
-        $progname = basename($argv[0]);
-        fwrite(STDERR,  "usage: $progname LATITUDE LONGITUDE\n");
-        exit(1);
-    }
+from datetime import datetime
+import time
+import os
+import ephem
 
-    $now = time();
-    $sunrise = date_sunrise($now, SUNFUNCS_RET_TIMESTAMP, $latitude, $longitude);
-    $sunset = date_sunset($now, SUNFUNCS_RET_TIMESTAMP, $latitude, $longitude);
-    $sunrise = date('H:i', $sunrise);
-    $sunset = date('H:i', $sunset);
-    fwrite(STDOUT,  "$sunrise $sunset\n");
-?>
+def utc_to_local(utc):
+    epoch = time.mktime(utc.timetuple())
+    offset = datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
+    return utc + offset
+
+home = ephem.Observer()
+home.lat = os.environ['LATITUDE']
+home.lon = os.environ['LONGITUDE']
+home.elevation = float(os.environ['ELEVATION'])
+
+sun = ephem.Sun()
+sun.compute(home)
+sun_rise = utc_to_local(home.next_rising(sun).datetime())
+sun_set = utc_to_local(home.next_setting(sun).datetime())
+fmt = "%H:%M"
+
+print('{}\n{}'.format(sun_rise.strftime(fmt), sun_set.strftime(fmt)))
