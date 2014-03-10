@@ -1,0 +1,16 @@
+#! /bin/sh
+
+path=${1:-"."}
+
+explore() {
+	local entry=$(find "$1" -maxdepth 1 ! -samefile "$1" 2> /dev/null | shuf | tail -n 1)
+	if [ -n "$entry" ] ; then
+		if [ -d "$entry" ] ; then
+			explore "$entry"
+		else
+			printf "%s\n" "$entry"
+		fi
+	fi
+}
+
+explore "$path"
