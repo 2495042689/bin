@@ -1,4 +1,4 @@
-#! /bin/dash
+#! /bin/sh
 
 usage() {
     status=${1:-0}
