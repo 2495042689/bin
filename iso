@@ -2,7 +2,7 @@
 
 usage() {
     status=${1:-0}
-    printf "%s [-l LABEL] [-o OUTPUT] FILE ...\n" "$(basename "$0")"
+    printf "%s [-h] [-l LABEL] [-o OUTPUT] FILE ...\n" "$(basename "$0")"
     exit $status
 }
 

@@ -16,8 +16,11 @@ fi
 
 printf "%s" "$bgtype" > "$HOME"/.conditions
 osascript - << END
-tell application "Terminal"
-	set default settings to settings set "Theme $bgtype"
-	set current settings of tabs of windows to settings set "Theme $bgtype"
+tell application "iTerm"
+	tell terminals
+		tell sessions
+			do shell script "printf '\\\\033]50;SetProfile=$bgtype\\\\a' > " & tty
+		end tell
+	end tell
 end tell
 END
