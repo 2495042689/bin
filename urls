@@ -41,12 +41,6 @@ case "$1" in
     last)
         $RAW_QUERY "select uri from urls order by rowid desc limit ${2:-1};"
         ;;
-    view)
-        $RAW_QUERY "select uri from urls where uri like '%$2%';" | xargs w3m
-        ;;
-    open)
-        $BASE_QUERY "select * from urls where uri like '%$2%';" | urlview
-        ;;
     prune)
         $BASE_QUERY "delete from urls where uri like '%$2%';"
         ;;

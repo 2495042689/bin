@@ -1,0 +1,6 @@
+#! /bin/sh
+
+tmp_dir=$(mktemp -d /tmp/mutt.XXXX)
+munpack -C "$tmp_dir"
+find "$tmp_dir" -iname "*.pps" -exec ppsei {} +
+iv "$tmp_dir"

@@ -15,12 +15,7 @@ else
 fi
 
 printf "%s" "$bgtype" > "$HOME"/.conditions
-osascript - << END
-tell application "iTerm"
-	tell terminals
-		tell sessions
-			do shell script "printf '\\\\033]50;SetProfile=$bgtype\\\\a' > " & tty
-		end tell
-	end tell
-end tell
-END
+
+for tty in $(tmux list-clients -F '#{client_tty}') ; do
+	printf "\033]50;SetProfile=%s\a" "$bgtype" > "$tty"
+done

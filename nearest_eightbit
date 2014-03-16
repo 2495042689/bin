@@ -11,7 +11,6 @@ COLORS = [(i, j, k) for i in COLOR_CHUNKS for j in COLOR_CHUNKS for k in COLOR_C
 MONOTONES = [(i, i, i) for i in MONOTONE_CHUNKS]
 COLORS.extend(MONOTONES)
 START_INDEX = 16
-verbose_output = False
 
 def get_nearest(element, source, verbose_output):
     distance = float('inf')
@@ -23,31 +22,34 @@ def get_nearest(element, source, verbose_output):
             nearest = candidate
     return nearest
 
-def loop(verbose_output):
-    for line in sys.stdin:
-        color_codes = re.findall('#([0-9A-F]{6})', line.upper())
-        for cc in color_codes:
-            if verbose_output:
-                print('({})'.format(cc))
-            element = list(map(lambda x: int(x, 16), re.findall('[0-9A-F]{2}', cc)))
-            nearest = get_nearest(element, COLORS, verbose_output)
-            formated_nearest = ['{:02X}'.format(n) for n in nearest]
-            code_nearest = '#{}'.format(''.join(formated_nearest))
-            if verbose_output:
-                print(code_nearest)
-            color_index = START_INDEX + COLORS.index(nearest)
-            print('color{}'.format(color_index))
+def loop(palette, verbose_output):
+    for hex_color in palette:
+        if verbose_output:
+            print('({})'.format(hex_color))
+        element = list(map(lambda x: int(x, 16), re.findall('[0-9A-F]{2}', hex_color, flags=re.IGNORECASE)))
+        print(element)
+        nearest = get_nearest(element, COLORS, verbose_output)
+        formated_nearest = ['{:02X}'.format(n) for n in nearest]
+        code_nearest = '#{}'.format(''.join(formated_nearest))
+        if verbose_output:
+            print(code_nearest)
+        color_index = START_INDEX + COLORS.index(nearest)
+        print('color{}'.format(color_index))
 
 def main():
     opts, args = getopt(sys.argv[1:], 'v', ['verbose'])
-
-    global verbose_output
-
+    verbose_output = False
+    palette = []
+    if len(args) > 0:
+        palette.extend(args)
+    else:
+        for line in sys.stdin:
+            color_codes = re.findall('#[0-9A-F]{6}', line, flags=re.IGNORECASE)
+            palette.extend(color_codes)
     for opt, val in opts:
         if opt in ('-v', '--verbose'):
             verbose_output = True
-
-    loop(verbose_output)
+    loop(palette, verbose_output)
 
 if __name__ == '__main__':
     main()
