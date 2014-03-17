@@ -10,10 +10,10 @@ while [ $# -gt 0 ] ; do
                 e "$1"
                 ;;
             video/*|application/vnd.rn-realmedia)
-                vp "$fp"
+                vp "$1"
                 ;;
             audio/*)
-                ap "$fp"
+                ap "$1"
                 ;;
             image/vnd.djvu)
                 dr "$1"
@@ -117,10 +117,10 @@ while [ $# -gt 0 ] ; do
                         iv "$1"
                         ;;
                     *.mp3|*.m3u|*.ogg)
-                        ap "$fp"
+                        ap "$1"
                         ;;
                     *.mp4|*.avi|*.mpg|*.mpeg|*.mkv|*.ogv|*.f4v|*.m2ts)
-                        vp "$fp"
+                        vp "$1"
                         ;;
                     *.webarchive)
                         tmp_xml=$(mktemp)

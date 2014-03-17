@@ -2,7 +2,7 @@
 
 ext='jpg'
 area=360000
-quality=75
+quality=95
 filter='Lanczos'
 
 while getopts 'a:e:q:f:' opt ; do
