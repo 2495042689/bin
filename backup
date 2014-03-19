@@ -5,9 +5,10 @@ do
 	filelist=""
 	case "$1" in
 		prefs)
-			for a in Finder iTerm Skim Xee ; do
+			for a in Finder QuickSilver iTerm Skim Xee Snes9x ; do
 				filelist="$filelist prefs/$(bid $a).plist"
 			done
+			filelist="$filelist prefs/com.apple.symbolichotkeys.plist"
 			;;
 		dots)
 			filelist=".coordinates .github_api_token .mpoprc .msmtprc .procmailrc .eatrc .castgetrc"
@@ -31,7 +32,7 @@ do
 			filelist="doc"
 			;;
 		sys)
-			filelist="/etc/hostname /etc/vconsole.conf /etc/locale.conf /etc/timezone /etc/lirc/lircd.conf /etc/pacman.conf /etc/pacman.d/mirrorlist /usr/share/kbd/keymaps/extra.map /etc/default/grub /etc/leafnode/config /etc/systemd/system /etc/udev/rules.d /etc/modprobe.d /etc/modules-load.d /usr/local/bin /etc/dict"
+			filelist="/etc/launchd-user.conf"
 			;;
 	esac
 	if [ -n "$filelist" ] ; then
