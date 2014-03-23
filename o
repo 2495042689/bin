@@ -58,7 +58,7 @@ while [ $# -gt 0 ] ; do
                 b "$1"
                 ;;
             text/troff)
-                man -l "$1"
+                man "$1"
                 ;;
             *)
                 case "$1" in

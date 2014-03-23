@@ -16,6 +16,6 @@ fi
 
 printf "%s" "$bgtype" > "$HOME"/.conditions
 
-for tty in $(tmux list-clients -F '#{client_tty}') ; do
+for tty in $(/usr/local/bin/tmux list-clients -F '#{client_tty}') ; do
 	printf "\033]50;SetProfile=%s\a" "$bgtype" > "$tty"
 done
