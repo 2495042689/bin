@@ -1,0 +1,6 @@
+#! /bin/sh
+
+pos=$1
+[ $# -eq 2 ] && pos="$1,$2"
+
+curl -s http://maps.googleapis.com/maps/api/elevation/json\?locations="$pos"\&sensor=true | jshon -e results -e 0 -e elevation
