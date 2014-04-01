@@ -31,9 +31,9 @@ do
 		doc)
 			filelist="doc"
 			;;
-		# sys)
-		# 	filelist="/etc/launchd-user.conf"
-		# 	;;
+		sys)
+			filelist="/etc/hooks.d"
+			;;
 	esac
 	if [ -n "$filelist" ] ; then
 		tar -cvz -C "$HOME" -f "${1}.tgz" $filelist
