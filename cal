@@ -3,7 +3,7 @@
 if [ -t 1 ] ; then
 	inverse=$(printf '\033[7m')
 	reset=$(printf '\033[0m')
-	/usr/bin/cal "$@" | sed -E 's/(^| )('$(date +%e)')( |$)/\1'${inverse}'\2'${reset}'\3/'
+	/usr/bin/cal "$@" | sed -E "s/(^| )($(date +%e))( |\$)/\1${inverse}\2${reset}\3/"
 else
 	/usr/bin/cal "$@" 
 fi
