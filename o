@@ -123,8 +123,8 @@ while [ $# -gt 0 ] ; do
                         vp "$1"
                         ;;
                     *.webarchive)
-                        tmp_xml=$(mktemp)
-                        tmp_html=$(mktemp)
+                        tmp_xml=$(mktemp /tmp/xml.XXXX)
+                        tmp_html=$(mktemp /tmp/html.XXXX)
                         plutil -i "$1" -o "$tmp_xml"
                         webarchive_decodemain "$tmp_xml" > "$tmp_html"
                         b "$tmp_html"

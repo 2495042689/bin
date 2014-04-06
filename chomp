@@ -1,7 +1,7 @@
 #! /bin/sh
 
-bbcodes=$(mktemp)
-tmpout=$(mktemp)
+bbcodes=$(mktemp /tmp/bbc.XXXX)
+tmpout=$(mktemp /tmp/out.XXXX)
 
 while [ $# -gt 0 ] ; do
     if [ -t 1 ] ; then
