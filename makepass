@@ -1,0 +1,3 @@
+#! /bin/sh
+
+/usr/local/bin/pwgen -nc | tr -d '\n' | pbcopy

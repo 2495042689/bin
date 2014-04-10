@@ -1,0 +1,22 @@
+#! /usr/bin/env python3
+
+from sys import argv
+from http.client import HTTPSConnection
+import json
+
+def main(args):
+    con = HTTPSConnection('domai.nr')
+    for arg in args:
+        req = con.request('GET', '/api/json/search?q=%s' % arg)
+        res = con.getresponse()
+        if res.status == 200:
+            data = res.read().decode('utf-8')
+            sites = json.loads(data)
+            for s in sites['results']:
+                if s['availability'] == 'available':
+                    print('{}{}'.format(s['domain'], s['path']))
+        else:
+            print("Error {}: {!r}.".format(res.status, res.reason))
+
+if __name__ == "__main__":
+    main(argv[1:])
