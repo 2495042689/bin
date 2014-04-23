@@ -9,3 +9,5 @@ DEST="$HOME/art/raw/$(date +%Y%m%d)"
 
 find -E /Volumes/"$VOLUME" -iregex '.*\.(jpg|raf|mp4)' \
      -exec cp -v {} "$DEST" \; && chmod 644 "$DEST"/*.*
+
+diskutil unmount "$VOLUME"

@@ -4,8 +4,9 @@ ext='jpg'
 area=360000
 quality=95
 filter='Lanczos'
+destdir=''
 
-while getopts 'a:e:q:f:' opt ; do
+while getopts 'a:e:q:f:d:' opt ; do
     case $opt in
         a)
             area=$OPTARG
@@ -19,13 +20,16 @@ while getopts 'a:e:q:f:' opt ; do
         f)
             filter=$OPTARG
             ;;
+        d)
+            destdir=$OPTARG
+            ;;
     esac
 done
 
 shift $(($OPTIND - 1))
 
 if [ $# -lt 1 ] ; then
-    printf "usage: %s [-a AREA|-e EXT|-q QUALITY|-f FILTER] FILE ...\n" "${0##*/}"
+    printf "usage: %s [-a AREA|-e EXT|-q QUALITY|-f FILTER|-d DESTDIR] FILE ...\n" "${0##*/}"
     exit 1
 fi
 
@@ -34,10 +38,10 @@ while [ $# -gt 0 ] ; do
     imagedir=$(dirname "$imagepath")
     imagebase=$(basename "$imagepath")
     imagebase=${imagebase%.*}
-    previewdir="$imagedir/previews"
+    previewdir=${destdir:-"$imagedir/previews"}
     mkdir -p "$previewdir"
     previewpath="$previewdir/pv_$imagebase.$ext"
-    printf "%s -> %s\n" "$imagepath" "$previewpath"
+    printf "%s\n" "$previewpath"
     convert -filter "$filter" -resize ${area}@\> -quality $quality -interlace Line -auto-orient "$imagepath" "$previewpath"
     shift
 done
