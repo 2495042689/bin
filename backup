@@ -32,7 +32,7 @@ do
 			filelist="doc"
 			;;
 		sys)
-			filelist="/etc/hooks.d"
+			filelist="/etc/hooks.d /etc/dictd.conf $(find `brew --prefix`/share/dictd -type f)"
 			;;
 	esac
 	if [ -n "$filelist" ] ; then
