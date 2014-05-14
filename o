@@ -87,7 +87,7 @@ while [ $# -gt 0 ] ; do
                         7z x "$1"
                         ;;
                     *.chm)
-                        xchm "$1"
+                        open "$1"
                         ;;
                     *.nzb)
                         nzbget -A "$1"
