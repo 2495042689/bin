@@ -22,7 +22,7 @@ shift $((OPTIND - 1))
 
 for raw in *.${ext} ; do
 	base=${raw%.*}
-	good=$(ls -d "$base".* | grep -v "$raw")
+	good=$(ls -d "$base"*.* | grep -v "$raw")
 	if [ -z "$good" ] ; then
 		printf "%s\n" "$raw"
 		[ $fake -eq 0 ] && trash "$raw"
