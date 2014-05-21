@@ -22,7 +22,7 @@ while [ $# -gt 0 ] ; do
 				ap "$1"
 				;;
 			image/vnd.djvu)
-				dr "$1"
+				open -a djview "$1"
 				;;
 			image/x-canon-cr2)
 				dcraw -T -w "$1"
