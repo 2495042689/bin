@@ -5,8 +5,8 @@ do
 	filelist=""
 	case "$1" in
 		prefs)
-			for a in Finder QuickSilver iTerm Skim Snes9x ; do
-				filelist="$filelist prefs/$(bid $a).plist"
+			for app in Finder QuickSilver Preview iTerm Skim Snes9x ; do
+				filelist="$filelist prefs/$(bid ${app}).plist"
 			done
 			filelist="$filelist prefs/com.apple.symbolichotkeys.plist"
 			;;
