@@ -8,7 +8,10 @@ do
 			for app in Finder QuickSilver Preview iTerm Skim Snes9x ; do
 				filelist="$filelist prefs/$(bid ${app}).plist"
 			done
-			filelist="$filelist prefs/com.apple.symbolichotkeys.plist"
+			filelist="$filelist prefs/com.apple.symbolichotkeys.plist prefs/pbs.plist"
+			;;
+		services)
+			filelist="Library/Services"
 			;;
 		dots)
 			filelist=".coordinates .github_api_token .mpoprc .msmtprc .procmailrc .eatrc .castgetrc"
