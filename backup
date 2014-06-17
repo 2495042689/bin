@@ -10,6 +10,9 @@ do
 			done
 			filelist="$filelist prefs/com.apple.symbolichotkeys.plist prefs/pbs.plist"
 			;;
+		support)
+			filelist="support/Quicksilver support/Chromium/Default"
+			;;
 		services)
 			filelist="Library/Services"
 			;;
