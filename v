@@ -1,6 +1,5 @@
 #! /bin/sh
 
-V_INFO=${V_INFO:-"$HOME/.viminfo"}
 V_VIM=${V_VIM:-${EDITOR:-vim}}
 
 pick_latest=1
@@ -32,10 +31,10 @@ done
 shift $((OPTIND - 1))
 tmpout=$(mktemp /tmp/v.XXXX)
 
-num=$(sed -En "s:^> *(.*$@.*)$:\1:p" "$V_INFO" | tee "$tmpout" | wc -l)
+num=$(Z -i "$XDG_DATA_HOME"/edit.db "$@" | tee "$tmpout" | wc -l)
 
 if [ $list_files -eq 1 ] ; then
-    sed "s!^~!$HOME!" "$tmpout" | tac
+    sed "s!^~!$HOME!" "$tmpout" | rev
 elif [ $num -eq 0 ] ; then
     if [ -n "$@" ] ; then
         printf "%s\n" "No matches." >&2
@@ -44,7 +43,7 @@ elif [ $pick_latest -eq 0 -o $num -eq 1 ] ; then
     sed "s!^~!$HOME!" "$tmpout" | tr '\n' '\0' | xargs -0 dash -c $V_VIM' "$@" < /dev/tty' $V_VIM
 else
     if [ $choose_index -eq 1 ] ; then
-        nl -s ': ' -w 3 "$tmpout" | tac
+        nl -s ': ' -w 3 "$tmpout" | rev
         printf "%s" "? "
         read index
     fi
