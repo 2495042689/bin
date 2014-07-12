@@ -31,7 +31,7 @@ done
 shift $((OPTIND - 1))
 tmpout=$(mktemp /tmp/v.XXXX)
 
-num=$(Z -i "$XDG_DATA_HOME"/edit.db "$@" | tee "$tmpout" | wc -l)
+num=$(Z -i "$XDG_DATA_HOME"/edit.z "$@" | tee "$tmpout" | wc -l)
 
 if [ $list_files -eq 1 ] ; then
     sed "s!^~!$HOME!" "$tmpout" | rev

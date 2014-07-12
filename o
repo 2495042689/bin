@@ -11,7 +11,7 @@ while [ $# -gt 0 ] ; do
 		tmux new-window -c "$dir"
 	elif [ -e "$1" ]; then
 		mime_type=$(file -L -b --mime-type "$1")
-		Z -i "$XDG_DATA_HOME"/open.db -a "$(realpath "$1")"
+		Z -i "$XDG_DATA_HOME"/open.z -a "$(realpath "$1")"
 		case $mime_type in
 			inode/x-empty)
 				e "$1"
