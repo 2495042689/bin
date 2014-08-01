@@ -3,5 +3,9 @@
 import sys
 from urllib.parse import quote
 
+enc = "utf-8"
+if len(sys.argv) > 1:
+    enc = sys.argv[1]
+
 for line in sys.stdin:
-    print(quote(line), end="")
+    print(quote(line, encoding=enc), end="")
