@@ -25,4 +25,6 @@ case "$cmd" in
 		mount -t smbfs "$src" "$dst" ;;
 	disconnect)
 		umount "$dst" ;;
+	status)
+		mount | grep "$src" 2>&1 > /dev/null && echo "up" || echo "down" ;;
 esac
