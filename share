@@ -1,0 +1,28 @@
+#! /bin/sh
+
+src=//livebox/DATA
+dst=/tmp/data
+trg=$(hostname -s)
+cmd=$1
+shift
+
+if [ ! -d "$dst" ] ; then
+	mkdir "$dst" || exit 1
+	mount -t smbfs "$src" "$dst"
+fi
+
+
+case "$cmd" in
+	list)
+		pax -f "$dst/${1:-$trg}.pax" ;;
+	pack)
+		pax -w -f "$dst/${trg}.pax" "$@" ;;
+	unpack)
+		pax -r -f "$dst/${1}.pax" ;;
+	destroy)
+		rm "$dst/${1:-$trg}.pax" ;;
+	connect)
+		mount -t smbfs "$src" "$dst" ;;
+	disconnect)
+		umount "$dst" ;;
+esac
