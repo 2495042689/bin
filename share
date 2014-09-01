@@ -18,11 +18,13 @@ case "$cmd" in
 	list)
 		pax -v -f "$dst/${1:-$trg}.pax" ;;
 	pack)
-		pax -v -w -f "$dst/${trg}.pax" "$@" ;;
-	append)
-		pax -v -aw -f "$dst/${trg}.pax" "$@" ;;
+		opt="-w"
+		[ -e "$dst/${trg}.pax" ] && opt="$opt -au"
+		pax -v $opt -f "$dst/${trg}.pax" "$@" ;;
 	unpack)
-		pax -v -r -f "$dst/${1}.pax" ;;
+		arg=$1
+		shift
+		pax -v -ru -f "$dst/${arg}.pax" "$@" ;;
 	destroy)
 		rm "$dst/${1:-$trg}.pax" ;;
 	connect)
