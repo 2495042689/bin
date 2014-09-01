@@ -13,12 +13,16 @@ fi
 
 
 case "$cmd" in
-	list)
+	ls)
 		pax -f "$dst/${1:-$trg}.pax" ;;
+	list)
+		pax -v -f "$dst/${1:-$trg}.pax" ;;
 	pack)
-		pax -w -f "$dst/${trg}.pax" "$@" ;;
+		pax -v -w -f "$dst/${trg}.pax" "$@" ;;
+	append)
+		pax -v -aw -f "$dst/${trg}.pax" "$@" ;;
 	unpack)
-		pax -r -f "$dst/${1}.pax" ;;
+		pax -v -r -f "$dst/${1}.pax" ;;
 	destroy)
 		rm "$dst/${1:-$trg}.pax" ;;
 	connect)
