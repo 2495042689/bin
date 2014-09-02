@@ -26,11 +26,11 @@ case "$cmd" in
 		shift
 		pax -v -ru -f "$dst/${arg}.pax" "$@" ;;
 	destroy)
-		rm "$dst/${1:-$trg}.pax" ;;
+		rm -v "$dst/${1:-$trg}.pax" ;;
 	connect)
-		mount -t smbfs "$src" "$dst" ;;
+		mount -v -t smbfs "$src" "$dst" ;;
 	disconnect)
-		umount "$dst" ;;
+		umount -v "$dst" ;;
 	status)
 		mount | grep "$src" 2>&1 > /dev/null && echo "up" || echo "down" ;;
 esac
