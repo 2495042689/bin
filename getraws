@@ -2,12 +2,13 @@
 
 # gphoto2 --get-all-files 2> /dev/null
 
-VOLUME=${1:-"Untitled"}
-DEST="$HOME/art/raw/$(date +%Y%m%d)"
+volume=${1:-"Untitled"}
+base=${2:-"$HOME/art/raw"}
+dest="${base}/$(date +%Y%m%d)"
 
-[ -d "$DEST" ] || mkdir "$DEST"
+[ -d "$dest" ] || mkdir "$dest"
 
-find -E /Volumes/"$VOLUME" -iregex '.*\.(jpg|raf|mp4)' \
-     -exec cp -v {} "$DEST" \; && chmod 644 "$DEST"/*.*
+find -E /Volumes/"$volume" -iregex '.*\.(jpg|raf|mp4)' \
+     -exec cp -v {} "$dest" \; && chmod 644 "$dest"/*.*
 
-diskutil unmount "$VOLUME"
+diskutil unmount "$volume"

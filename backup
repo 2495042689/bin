@@ -8,7 +8,7 @@ do
 			for app in Finder QuickSilver Preview iTerm Skim Snes9x Transmission ; do
 				filelist="$filelist prefs/$(bid ${app}).plist"
 			done
-			filelist="$filelist prefs/com.apple.symbolichotkeys.plist prefs/pbs.plist"
+			filelist="$filelist prefs/com.apple.symbolichotkeys.plist prefs/pbs.plist prefs/fs-uae"
 			;;
 		support)
 			filelist="support/Quicksilver support/Chromium/Default"
