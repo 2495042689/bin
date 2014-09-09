@@ -1,0 +1,23 @@
+#! /bin/sh
+
+verb=$1
+imagePath=$2
+volName=$(basename "${imagePath}")
+mountRoot=/tmp
+
+shift 2
+
+case "$verb" in
+	create)
+		hdiutil create -fs HFS+ -layout NONE -type SPARSE -size 4G -volname "${volName}" "${imagePath}" ;;
+	compact)
+		hdiutil compact "${imagePath}" ;;
+	resize)
+		hdiutil resize -size "$1" "${imagePath}" ;;
+	attach)
+		hdiutil attach -mountroot "${mountRoot}" "${imagePath}" ;;
+	detach)
+		hdiutil detach "${mountRoot}/${volName}" ;;
+	info)
+		hdiutil imageinfo "${imagePath}" ;;
+esac
