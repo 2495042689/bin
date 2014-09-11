@@ -1,6 +1,6 @@
 #! /bin/sh
 
-dst=/Volumes/DATA
+dst=/mnt/livebox/data
 trg=$(hostname -s)
 cmd=$1
 shift
