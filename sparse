@@ -9,7 +9,7 @@ shift 2
 
 case "$verb" in
 	create)
-		hdiutil create -fs HFS+ -layout NONE -type SPARSE -size 4G -volname "${volName}" "${imagePath}" ;;
+		hdiutil create -fs HFS+ -layout NONE -type SPARSE -size "${1:-4G}" -volname "${volName}" "${imagePath}" ;;
 	compact)
 		hdiutil compact "${imagePath}" ;;
 	resize)
@@ -20,4 +20,6 @@ case "$verb" in
 		hdiutil detach "${mountRoot}/${volName}" ;;
 	info)
 		hdiutil imageinfo "${imagePath}" ;;
+	pmap)
+		hdiutil pmap "${imagePath}" ;;
 esac

@@ -1,25 +1,26 @@
 #! /usr/bin/env python3
 
-import sys, re
-from colormath.color_objects import RGBColor
+import sys
+import re
+from colormath.color_objects import sRGBColor, LCHabColor
+from colormath.color_conversions import convert_color
 
 palette = []
 args = sys.argv[1:]
 
 if len(args) > 0:
-    palette.extend(args)
+    palette.append(" ".join(args))
 else:
     for line in sys.stdin:
-        colors = re.findall('[0-9]+\s+[0-9]+\s+[0-9]+', line)
+        colors = re.findall("\d+\s+\d+\s+\d+", line)
         palette.extend(colors)
 
 if len(palette) < 1:
-    print('no color found', file=sys.stderr)
+    print("No color found.", file=sys.stderr)
     sys.exit(1)
 
 for color in palette:
-    (R, G, B) = map(int, re.split('\s+', color))
-    rgb_color = RGBColor(R, G, B)
-    lch_color = rgb_color.convert_to('lchab')
-    print('%f %f %f ' % lch_color.get_value_tuple(), end='')
-    print('(%s)' % color)
+    rgb = map(int, re.split("\s+", color))
+    rgb_color = sRGBColor(*rgb, is_upscaled=True)
+    lch_color = convert_color(rgb_color, LCHabColor)
+    print("{} {} {}".format(*lch_color.get_value_tuple()))

@@ -1,13 +1,11 @@
 #! /usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import sys
 from PIL import Image
-from colormath.color_objects import RGBColor
+from colormath.color_objects import sRGBColor
 
 def get_hex(pixel):
-    (red, green, blue) = pixel
-    rgb_color = RGBColor(red, green, blue)
+    rgb_color = sRGBColor(*pixel, is_upscaled=True)
     return rgb_color.get_rgb_hex()
 
 args = sys.argv[1:]

@@ -3,7 +3,8 @@
 import sys
 import re
 from os.path import basename
-from colormath.color_objects import LabColor, RGBColor
+from colormath.color_objects import LabColor, sRGBColor
+from colormath.color_conversions import convert_color
 
 LO_IDX = range(1, 7)
 HI_IDX = range(9, 15)
@@ -23,9 +24,8 @@ def normalize(match_obj):
     index = int(match_obj.group(1))
     separator = match_obj.group(2)
     hex_color = match_obj.group(3)
-    rgb_color = RGBColor()
-    rgb_color.set_from_rgb_hex(hex_color)
-    lab_color = rgb_color.convert_to('lab')
+    rgb_color = sRGBColor.new_from_rgb_hex(hex_color)
+    lab_color = convert_color(rgb_color, LabColor)
     a = lab_color.lab_a
     b = lab_color.lab_b
     if index in LO_IDX:
@@ -35,8 +35,8 @@ def normalize(match_obj):
     else:
         return '{}{}{}'.format(index, separator, hex_color)
     norm_lab = LabColor(lum, a, b)
-    norm_rgb = norm_lab.convert_to('rgb')
-    norm_hex = norm_rgb.get_rgb_hex().upper()
+    norm_rgb = convert_color(norm_lab, sRGBColor)
+    norm_hex = norm_rgb.get_rgb_hex()
     return '{}{}{}'.format(index, separator, norm_hex)
 
 for line in sys.stdin:
