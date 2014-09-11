@@ -1,16 +1,9 @@
 #! /bin/sh
 
-src=//livebox/DATA
-dst=/tmp/data
+dst=/Volumes/DATA
 trg=$(hostname -s)
 cmd=$1
 shift
-
-if [ ! -d "$dst" ] ; then
-	mkdir "$dst" || exit 1
-	mount -t smbfs "$src" "$dst"
-fi
-
 
 case "$cmd" in
 	ls)
@@ -27,10 +20,4 @@ case "$cmd" in
 		pax -v -ru -f "$dst/${arg}.pax" "$@" ;;
 	destroy)
 		rm -v "$dst/${1:-$trg}.pax" ;;
-	connect)
-		mount -v -t smbfs "$src" "$dst" ;;
-	disconnect)
-		umount -v "$dst" ;;
-	status)
-		mount | grep "$src" 2>&1 > /dev/null && echo "up" || echo "down" ;;
 esac
