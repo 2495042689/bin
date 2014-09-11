@@ -7,9 +7,9 @@ shift
 
 case "$cmd" in
 	ls)
-		pax -f "$dst/${1:-$trg}.pax" ;;
+		pax -f "$dst/${1:-$trg}.pax" 2> /dev/null ;;
 	list)
-		pax -v -f "$dst/${1:-$trg}.pax" ;;
+		pax -v -f "$dst/${1:-$trg}.pax" 2> /dev/null ;;
 	pack)
 		opt="-w"
 		[ -e "$dst/${trg}.pax" ] && opt="$opt -au"
@@ -19,5 +19,5 @@ case "$cmd" in
 		shift
 		pax -v -ru -f "$dst/${arg}.pax" "$@" ;;
 	destroy)
-		rm -v "$dst/${1:-$trg}.pax" ;;
+		rm -v "$dst/${1:-$trg}.pax" 2> /dev/null ;;
 esac
