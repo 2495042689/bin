@@ -11,7 +11,7 @@ case "$cmd" in
 	list)
 		pax -v -f "${dst}/${1:-$trg}.pax" 2> /dev/null ;;
 	scan)
-		ls "$dst"/*.pax ;;
+		ls "$dst"/*.pax 2> /dev/null ;;
 	pack|packto)
 		if [ "$cmd" = "packto" ] ; then
 			trg=$1
