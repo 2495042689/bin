@@ -7,17 +7,21 @@ shift
 
 case "$cmd" in
 	ls)
-		pax -f "$dst/${1:-$trg}.pax" 2> /dev/null ;;
+		pax -f "${dst}/${1:-$trg}.pax" 2> /dev/null ;;
 	list)
-		pax -v -f "$dst/${1:-$trg}.pax" 2> /dev/null ;;
-	pack)
+		pax -v -f "${dst}/${1:-$trg}.pax" 2> /dev/null ;;
+	pack|packto)
+		if [ "$cmd" = "packto" ] ; then
+			trg=$1
+			shift
+		fi
 		opt="-w"
-		[ -e "$dst/${trg}.pax" ] && opt="$opt -au"
-		pax -v $opt -f "$dst/${trg}.pax" "$@" ;;
+		[ -e "${dst}/${trg}.pax" ] && opt="$opt -au"
+		pax -v $opt -f "${dst}/${trg}.pax" "$@" ;;
 	unpack)
 		arg=$1
 		shift
-		pax -v -ru -f "$dst/${arg}.pax" "$@" ;;
+		pax -v -ru -f "${dst}/${arg}.pax" "$@" ;;
 	destroy)
-		rm -v "$dst/${1:-$trg}.pax" 2> /dev/null ;;
+		rm -v "${dst}/${1:-$trg}.pax" 2> /dev/null ;;
 esac
