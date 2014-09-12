@@ -38,11 +38,11 @@ do
 			filelist="doc"
 			;;
 		sys)
-			filelist="/etc/hooks.d /sbin/mount_diskimage /etc/auto_livebox /etc/auto_diskimage /etc/auto_master /etc/dictd.conf $(find `brew --prefix`/share/dictd -type f)"
+			filelist="/etc/hooks.d /etc/auto_livebox /etc/auto_master /etc/dictd.conf $(find `brew --prefix`/share/dictd -type f)"
 			;;
 	esac
 	if [ -n "$filelist" ] ; then
-		tar -cvz -C "$HOME" -f "${1}.tgz" $filelist
+		tar -cv -C "$HOME" -f "${1}.tar" $filelist
 	fi
 	shift
 done
