@@ -8,7 +8,7 @@ dest="${base}/$(date +%Y%m%d)"
 
 [ -d "$dest" ] || mkdir "$dest"
 
-find -E /Volumes/"$volume" -iregex '.*\.(jpg|raf|mp4)' \
+find -E /Volumes/"$volume" -iregex '.*\.(jpg|raf|mp4|mov)' \
      -exec cp -v {} "$dest" \; && chmod 644 "$dest"/*.*
 
 diskutil unmount "$volume"

@@ -19,7 +19,7 @@ case "$cmd" in
 		fi
 		opt="-w"
 		[ -e "${dst}/${trg}.pax" ] && opt="$opt -au"
-		pax -v $opt -f "${dst}/${trg}.pax" "$@" ;;
+		pax -L -v $opt -f "${dst}/${trg}.pax" "$@" ;;
 	unpack)
 		arg=$1
 		shift
