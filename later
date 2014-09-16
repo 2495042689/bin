@@ -1,0 +1,14 @@
+#! /bin/sh
+
+URL_DB="$SHARE_ROOT"/urls.Z
+verb=$1
+shift
+
+case "$verb" in
+	add)
+		Z -i "$URL_DB" -a "$@" ;;
+	delete)
+		Z -i "$URL_DB" -d "$@" ;;
+	list)
+		Z -i "$URL_DB" ;;
+esac
