@@ -2,7 +2,8 @@
 
 import re
 import sys
-from colormath.color_objects import RGBColor
+from colormath.color_objects import sRGBColor, LCHabColor
+from colormath.color_conversions import convert_color
 
 DELTA_L_MIN = 27
 DELTA_H_MIN = 10
@@ -31,12 +32,11 @@ standard_mapping = {'foreground': 'Foreground',
                        'color15': 'White'}
 
 def gethex(lch_color):
-    return lch_color.convert_to('rgb').get_rgb_hex()
+    return convert_color(lch_color, sRGBColor).get_rgb_hex()
 
 def getlch(hex_color):
-    rgb_color = RGBColor()
-    rgb_color.set_from_rgb_hex(hex_color)
-    return rgb_color.convert_to('lchab')
+    rgb_color = sRGBColor.new_from_rgb_hex(hex_color)
+    return convert_color(rgb_color, LCHabColor)
 
 def hue(lch_color):
     return lch_color.lch_h
@@ -59,7 +59,7 @@ def delta_hue(a, b):
 
 def ratio(a, b):
     if b == 0:
-        return sys.float_info.max
+        return float('inf')
     else:
         return a / b
 
