@@ -7,7 +7,7 @@ shift
 case "$verb" in
 	add)
 		Z -i "$URL_DB" -a "$@" ;;
-	delete)
+	rm|remove)
 		Z -i "$URL_DB" -d "$@" ;;
 	list)
 		Z -i "$URL_DB" ;;
