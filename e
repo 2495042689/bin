@@ -7,4 +7,4 @@ while [ $# -gt 0 ] ; do
 	shift
 done
 
-$EDITOR --servername $$ "${files[@]}"
+exec $EDITOR "${files[@]}"

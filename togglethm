@@ -2,24 +2,38 @@
 
 PATH="/usr/local/bin:${PATH}"
 
+curbg=$(cat "${HOME}/.conditions")
+
 if [ $# -gt 0 ] ; then
-    bgtype=$1
+	nextbg=$1
 else
-	bgtype=$(cat "$HOME"/.conditions)
-    case "$bgtype" in
-        Dark)
-            bgtype=Light
-            ;;
-        Light)
-            bgtype=Dark
-            ;;
-    esac
+	case "$curbg" in
+		Dark)
+			nextbg=Light
+			;;
+		Light)
+			nextbg=Dark
+			;;
+	esac
 fi
 
-printf "%s" "$bgtype" > "$HOME"/.conditions
+printf "%s" "$nextbg" > "$HOME"/.conditions
 
-for tty in $(tmux list-clients -F '#{client_tty}') ; do
-	printf "\033]50;SetProfile=%s\a" "$bgtype" > "$tty"
+for tty in $(tmux list-clients -F "#{client_tty}") ; do
+	printf "\033]50;SetProfile=%s\a" "$nextbg" > "$tty"
 done
 
-vim --serverlist | xargs -I % vim --servername % --remote-send ":source ~/.vimrc<cr>"
+if [ "$nextbg" != "$curbg" ] ; then
+	echo ":source ~/.vimrc" | tmux load-buffer -
+	for sess in $(tmux list-sessions -F "#{session_id}") ; do
+		for win in $(tmux list-windows -t "$sess" -F "#{window_id}") ; do
+			for pane_pid in $(tmux list-panes -t "$win" -F "#{pane_id},#{pane_pid}") ; do
+				pane=${pane_pid%,*}
+				pid=${pane_pid#*,}
+				if pgrep -P $pid -x vim > /dev/null ; then
+					tmux paste-buffer -t "$pane"
+				fi
+			done
+		done
+	done
+fi
