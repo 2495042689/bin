@@ -1,3 +1,5 @@
 #! /bin/sh
 
 find -L "${1:-.}" -type l -print -exec rm -- {} +
+
+# Slight problem: a symlink that resolves to another symlink is a false positive
