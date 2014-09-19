@@ -1,5 +1,7 @@
 #! /bin/sh
 
+PATH="/usr/local/bin:${PATH}"
+
 if [ $# -gt 0 ] ; then
     bgtype=$1
 else
@@ -16,6 +18,8 @@ fi
 
 printf "%s" "$bgtype" > "$HOME"/.conditions
 
-for tty in $(/usr/local/bin/tmux list-clients -F '#{client_tty}') ; do
+for tty in $(tmux list-clients -F '#{client_tty}') ; do
 	printf "\033]50;SetProfile=%s\a" "$bgtype" > "$tty"
 done
+
+vim --serverlist | xargs -I % vim --servername % --remote-send ":source ~/.vimrc<cr>"
