@@ -1,0 +1,3 @@
+#! /bin/sh
+
+find -L "${1:-.}" -type l -print -exec rm -- {} +
