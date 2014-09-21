@@ -9,6 +9,6 @@ case "$verb" in
 		Z -i "$URL_DB" -a "$@" ;;
 	rm|remove)
 		Z -i "$URL_DB" -d "$@" ;;
-	list)
+	ls|list)
 		Z -i "$URL_DB" ;;
 esac
