@@ -24,7 +24,7 @@ for tty in $(tmux list-clients -F "#{client_tty}") ; do
 done
 
 if [ "$nextbg" != "$curbg" ] ; then
-	echo ":source ~/.vimrc" | tmux load-buffer -
+	echo ":source ~/.vimrc" | tmux load-buffer -
 	for sess in $(tmux list-sessions -F "#{session_id}") ; do
 		for win in $(tmux list-windows -t "$sess" -F "#{window_id}") ; do
 			for pane_pid in $(tmux list-panes -t "$win" -F "#{pane_id},#{pane_pid}") ; do
