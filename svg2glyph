@@ -216,12 +216,13 @@ for opt, val in opts:
         sys.exit(0)
 
 gid = 0
+mapping = {}
 
 for fname in args:
     root = parse(fname)
     name = root.getElementsByTagName('title')[0].childNodes[0].data
-    dx = dy = 0
     groups = root.getElementsByTagName('g')[0]
+    dx = dy = 0
     handle_transform(groups)
     if name in psnames_to_uni:
         uni = psnames_to_uni[name]
@@ -233,6 +234,10 @@ for fname in args:
     paths = groups.getElementsByTagName('path')
     glyph = join(output_dir, '{}.glyph'.format(gname))
     dest = open(glyph, 'w')
+    if not name in mapping:
+        mapping[name] = [fname]
+    else:
+        mapping[name].append(fname)
     print('{} -> {}'.format(fname, glyph))
     print('StartChar: {}'.format(name), file=dest)
     print('Encoding: {} {} {}'.format(uni, uni, gid), file=dest)
@@ -283,9 +288,13 @@ for fname in args:
                 pos = init_pos
                 indent = 0
             else:
-                print("Unsupported instruction: '{}'.".format(cmd))
+                print("Unsupported instruction: '{}'.".format(cmd), file=sys.stderr)
                 cmd = queue.popleft()
     print('EndSplineSet', file=dest)
     print('EndChar', file=dest)
     dest.close()
     gid = gid + 1
+
+for gname, fnames in mapping.items():
+    if len(fnames) > 1:
+        print("Collision: {} <- {}".format(gname, fnames), file=sys.stderr)
