@@ -24,6 +24,6 @@ case "$cmd" in
 		arg=$1
 		shift
 		pax -v -ru -f "${dst}/${arg}.pax" "$@" ;;
-	destroy)
+	rm|remove)
 		rm -v "${dst}/${1:-$trg}.pax" 2> /dev/null ;;
 esac
