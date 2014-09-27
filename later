@@ -11,4 +11,6 @@ case "$verb" in
 		Z -i "$URL_DB" -d "$@" ;;
 	ls|list)
 		Z -i "$URL_DB" ;;
+	grep)
+		Z -i "$URL_DB" "$@" ;;
 esac
