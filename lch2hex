@@ -9,6 +9,7 @@ lch = map(lambda x: float(x), sys.argv[1:])
 
 lch_color = LCHabColor(*lch)
 rgb_color = convert_color(lch_color, sRGBColor)
-hex_color = rgb_color.get_rgb_hex()
+clamped_rgb = sRGBColor(rgb_color.clamped_rgb_r, rgb_color.clamped_rgb_g, rgb_color.clamped_rgb_b)
+hex_color = clamped_rgb.get_rgb_hex()
 
 print(hex_color)
