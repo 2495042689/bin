@@ -3,7 +3,7 @@
 verb=$1
 imagePath=$2
 volName=$(basename "${imagePath}")
-mountRoot=/tmp
+mountRoot=/Volumes
 
 shift 2
 
