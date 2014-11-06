@@ -2,4 +2,4 @@
 
 pattern=$1
 shift
-brew list -v "$@" | tr '\n' '\0' | xargs -0 grep -d skip -I -E "$pattern"
+find `brew --prefix`/Library/Formula/ -print0 | xargs -0 grep -EI -d skip "$pattern"
