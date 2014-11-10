@@ -8,20 +8,20 @@ if [ $# -gt 0 ] ; then
 	nextbg=$1
 else
 	case "$curbg" in
-		Dark)
-			nextbg=Light
-			;;
 		Light)
 			nextbg=Dark
+			itermkey="("
+			;;
+		Dark)
+			nextbg=Light
+			itermkey=")"
 			;;
 	esac
 fi
 
 printf "%s" "$nextbg" > "$HOME"/.conditions
 
-for tty in $(tmux list-clients -F "#{client_tty}") ; do
-	printf "\033]50;SetProfile=%s\a" "$nextbg" > "$tty"
-done
+osascript -e 'tell application "System Events" to keystroke "'$itermkey'" using {command down,control down}'
 
 if [ "$nextbg" != "$curbg" ] ; then
 	echo ":source ~/.vimrc" | tmux load-buffer -
