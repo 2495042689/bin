@@ -10,7 +10,7 @@ case "$verb" in
 	rm|remove)
 		Z -i "$URL_DB" -d "$@" ;;
 	ls|list)
-		Z -i "$URL_DB" "$@";;
+		Z -i "$URL_DB" "$@" | tail -r;;
 	*)
 		exit 1 ;;
 esac
