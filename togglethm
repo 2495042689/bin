@@ -2,24 +2,24 @@
 
 PATH="/usr/local/bin:${PATH}"
 
-curbg=$(cat "${HOME}/.conditions")
+curbg=$(cat "$BGTYPE")
 
 if [ $# -gt 0 ] ; then
 	nextbg=$1
 else
 	case "$curbg" in
-		Light)
-			nextbg=Dark
+		light)
+			nextbg=dark
 			itermkey="("
 			;;
-		Dark)
-			nextbg=Light
+		dark)
+			nextbg=light
 			itermkey=")"
 			;;
 	esac
 fi
 
-printf "%s" "$nextbg" > "$HOME"/.conditions
+printf "%s" "$nextbg" > "$BGTYPE"
 
 osascript -e 'tell application "System Events" to keystroke "'$itermkey'" using {command down,control down}'
 
@@ -34,8 +34,9 @@ if [ "$nextbg" != "$curbg" ] ; then
 					if pgrep -P $pid -x vim > /dev/null ; then
 						tmux paste-buffer -t "$pane"
 						pid=""
+					else
+						pid=$(pgrep -P $pid -n)
 					fi
-					pid=$(pgrep -P $pid -n)
 				done
 			done
 		done
