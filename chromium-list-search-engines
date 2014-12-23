@@ -1,0 +1,11 @@
+#! /usr/bin/env python3
+
+import os
+import sqlite3
+
+DBPATH = os.path.join(os.environ['HOME'], 'Library/Application Support/Chromium/Default/Web Data')
+conn = sqlite3.connect(DBPATH)
+cur = conn.cursor()
+for row in cur.execute("SELECT keyword, url FROM keywords"):
+    print("{}: {}".format(row[0], row[1].replace("{searchTerms}", "%s")))
+conn.close()
