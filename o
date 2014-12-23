@@ -29,7 +29,7 @@ while [ $# -gt 0 ] ; do
 				dcraw -T -w "$1"
 				;;
 			image/svg+xml|application/x-shockwave-flash)
-				b "$1"
+				wb "$1"
 				;;
 			image/x-xcf)
 				open -a Gimp "$1"
@@ -62,7 +62,7 @@ while [ $# -gt 0 ] ; do
 				fontforge "$1"
 				;;
 			text/html)
-				b "$1"
+				wb "$1"
 				;;
 			text/troff)
 				man "$1"
@@ -106,7 +106,7 @@ while [ $# -gt 0 ] ; do
 						fontforge "$1"
 						;;
 					*.svg)
-						b "$1"
+						wb "$1"
 						;;
 					*.pps|*.PPS|*.ppt|*.PPT)
 						ppsei "$1"
@@ -134,7 +134,7 @@ while [ $# -gt 0 ] ; do
 						tmp_html=$(mktemp /tmp/html.XXXX)
 						plutil -i "$1" -o "$tmp_xml"
 						webarchive_decodemain "$tmp_xml" > "$tmp_html"
-						b "$tmp_html"
+						wb "$tmp_html"
 						rm "$tmp_xml"
 						;;
 					*.blend)
@@ -160,7 +160,7 @@ while [ $# -gt 0 ] ; do
 	else
 		case "$1" in
 			*://*)
-				b "$1"
+				wb "$1"
 				;;
 			*:*)
 				open "$1"
