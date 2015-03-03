@@ -41,4 +41,6 @@ if [ "$nextbg" != "$curbg" ] ; then
 			done
 		done
 	done
+	tmux delete-buffer
 fi
+

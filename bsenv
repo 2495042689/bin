@@ -1,0 +1,18 @@
+#! /bin/sh
+
+PATH="/usr/local/bin:${PATH}"
+pdir=$(Z proj col | head -n 1)
+LF="
+"
+pgrep -x mongod > /dev/null 2>&1 || mongod --fork --logpath ~/.mongod.log --config /usr/local/etc/mongod.conf
+tmux rename-window msg \; split-window -hd -c "#{pane_current_path}"
+tmux set-buffer "c && m${LF}" \; paste-buffer -t msg.1 \; delete-buffer
+tmux set-buffer "nb${LF}j${LF}r" \; paste-buffer -t msg.2 \; delete-buffer
+tmux new-window -c "${pdir}"/server -n watch \; split-window -h -c "${pdir}"
+tmux set-buffer "nodemon -i public${LF}" \; paste-buffer -t watch.1 \; delete-buffer
+tmux set-buffer "gulp watch${LF}" \; paste-buffer -t watch.2 \; delete-buffer
+tmux new-window -c "${pdir}" -n js
+tmux new-window -c "${pdir}" -n less
+tmux set-buffer "e -O \$(v -l proj col .js | tail -n 2)${LF}" \; paste-buffer -t js \; delete-buffer
+tmux set-buffer "e -O \$(v -l proj col .less | tail -n 2)${LF}" \; paste-buffer -t less \; delete-buffer
+tmux select-window -t js
