@@ -14,5 +14,5 @@ tmux set-buffer "gulp watch${LF}" \; paste-buffer -t watch.2 \; delete-buffer
 tmux new-window -c "${pdir}" -n js
 tmux new-window -c "${pdir}" -n less
 tmux set-buffer "e -O \$(v -l proj col .js | tail -n 2)${LF}" \; paste-buffer -t js \; delete-buffer
-tmux set-buffer "e -O \$(v -l proj col .less | tail -n 2)${LF}" \; paste-buffer -t less \; delete-buffer
+tmux set-buffer "e -O \$(v -l proj col .less | tail -n 3)${LF}" \; paste-buffer -t less \; delete-buffer
 tmux select-window -t js
