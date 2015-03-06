@@ -2,10 +2,13 @@
 
 PATH="/usr/local/bin:${PATH}"
 pdir=$(Z proj col | head -n 1)
+LF="
+"
 
 pgrep -x mongod > /dev/null 2>&1 || mongod --fork --logpath ~/.mongod.log --config /usr/local/etc/mongod.conf
 tmux rename-window tmp
 tmux new-window -n msg "m" \; split-window -hd -c "#{pane_current_path}" "nb"
+tmux set-buffer "j${LF}r" \; paste-buffer -t msg.2 \; delete-buffer
 tmux new-window -c "${pdir}"/server -n watch "nodemon -i public"\; split-window -h -c "${pdir}" "gulp watch"
 tmux new-window -c "${pdir}" -n js "e -O \$(v -l proj col .js | tail -n 2)"
 tmux new-window -c "${pdir}" -n less "e -O \$(v -l proj col .less | tail -n 3)"
