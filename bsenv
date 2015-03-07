@@ -5,7 +5,7 @@ pdir=$(Z proj col | head -n 1)
 LF="
 "
 
-pgrep -x mongod > /dev/null 2>&1 || mongod --fork --logpath ~/.mongod.log --config /usr/local/etc/mongod.conf
+pgrep -x mongod > /dev/null 2>&1 || mongod --config /usr/local/etc/mongod.conf
 tmux rename-window tmp
 tmux new-window -n msg "m" \; split-window -hd -c "#{pane_current_path}" "nb"
 tmux set-buffer "j${LF}r" \; paste-buffer -t msg.2 \; delete-buffer
