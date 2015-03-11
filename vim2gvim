@@ -25,8 +25,8 @@ for line in sys.stdin:
             translated_index = color_index - START_OF_COLORS
             c = COLORS[translated_index]
             color_code = '#%s' % (''.join(['%02x' % i for i in c])).upper()
-        print('    gui%sg=%s' % (color_type, color_code), end='')
+        print(' gui%sg=%s' % (color_type, color_code), end='')
     attribute_elements = re.findall('cterm=(\S+)', line)
     for ae in attribute_elements:
-        print('    gui=%s' % ae, end='')
+        print(' gui=%s' % ae, end='')
     print()
