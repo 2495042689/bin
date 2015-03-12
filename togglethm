@@ -24,14 +24,14 @@ printf "%s" "$nextbg" > "$BGTYPE"
 osascript -e 'tell application "System Events" to keystroke "'$itermkey'" using {command down,control down}'
 
 if [ "$nextbg" != "$curbg" ] ; then
-	echo ":source ~/.vimrc" | tmux load-buffer -
+	echo ":colorscheme bubblegum-256-${nextbg}" | tmux load-buffer -
 	for sess in $(tmux list-sessions -F "#{session_id}") ; do
 		for win in $(tmux list-windows -t "$sess" -F "#{window_id}") ; do
 			for pane_pid in $(tmux list-panes -t "$win" -F "#{pane_id},#{pane_pid}") ; do
 				pane=${pane_pid%,*}
 				pid=${pane_pid#*,}
 				while [ -n "$pid" ] ; do
-					if pgrep -P $pid -x vim > /dev/null ; then
+					if ps -p $pid -o comm= | grep "^vim$" > /dev/null ; then
 						tmux paste-buffer -t "$pane"
 						pid=""
 					else
