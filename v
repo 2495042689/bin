@@ -6,11 +6,12 @@ pick_latest=1
 choose_index=0
 list_files=0
 index=1
+sortby=frecency
 
-while getopts 'hlaci:' opt ; do
+while getopts 'hlaci:s:' opt ; do
     case $opt in
         h)
-            printf "%s [-hlaci] [REGEX]\n" "${0##*/}"
+            printf "%s [-hlac] [-i INDEX] [-s SORT_BY] [REGEX]\n" "${0##*/}"
             exit
             ;;
         l)
@@ -25,13 +26,16 @@ while getopts 'hlaci:' opt ; do
         i)
             index=$OPTARG
             ;;
+        s)
+            sortby=$OPTARG
+            ;;
     esac
 done
 
 shift $((OPTIND - 1))
 tmpout=$(mktemp /tmp/v.XXXX)
 
-num=$(Z -i "$XDG_DATA_HOME"/edit.z "$@" | tee "$tmpout" | wc -l)
+num=$(Z -i "$XDG_DATA_HOME"/edit.z -s "$sortby" "$@" | tee "$tmpout" | wc -l)
 
 if [ $list_files -eq 1 ] ; then
     sed "s!^~!$HOME!" "$tmpout" | tail -r
