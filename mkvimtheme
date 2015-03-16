@@ -1,0 +1,3 @@
+#! /bin/sh
+
+mvim -u NONE -U NONE -c "syntax on | source ${1} | exec \"redir > \" . g:colors_name . \".vimTheme | hi | redir END\" | quit"
