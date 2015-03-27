@@ -1,7 +1,6 @@
 #! /bin/sh
 
 PRG=gvim
-
 INIT=""
 
 while getopts "ld" opt ; do
