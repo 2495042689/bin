@@ -2,6 +2,21 @@
 
 PRG=gvim
 
+INIT=""
+
+while getopts "ld" opt ; do
+    case $opt in
+        l)
+            INIT=" set bg=light |"
+            ;;
+        d)
+            INIT=" set bg=dark |"
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
 while [ $# -gt 0 ] ; do
 	case "$1" in
 		*256*)
@@ -9,6 +24,6 @@ while [ $# -gt 0 ] ; do
 		*)
 			PRG=gvim ;;
 	esac
-	$PRG -u NONE -U NONE -c "syntax on | source ${1} | exec \"redir! > \" . g:colors_name . \".vimTheme | hi | redir END\" | quit"
+	$PRG -u NONE -U NONE -c "syntax on |${INIT} source ${1} | exec \"redir! > \" . g:colors_name . \".vimTheme | hi | redir END\" | quit"
 	shift
 done
