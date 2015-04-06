@@ -2,14 +2,17 @@
 
 PRG=gvim
 INIT=""
+BGTYPE=""
 
 while getopts "ld" opt ; do
     case $opt in
         l)
             INIT=" set bg=light |"
+            BGTYPE="light"
             ;;
         d)
             INIT=" set bg=dark |"
+            BGTYPE="dark"
             ;;
     esac
 done
@@ -24,6 +27,7 @@ while [ $# -gt 0 ] ; do
 			PRG=gvim ;;
 	esac
 	base=${1%.*}
+	[ -n "$BGTYPE" ] && base="${base}-${BGTYPE}"
 	$PRG -u NONE -U NONE -c "syntax on |${INIT} source ${1} | exec \"redir! > ${base}.vimTheme | hi | redir END\" | quit"
 	shift
 done
