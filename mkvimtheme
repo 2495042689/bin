@@ -23,6 +23,7 @@ while [ $# -gt 0 ] ; do
 		*)
 			PRG=gvim ;;
 	esac
-	$PRG -u NONE -U NONE -c "syntax on |${INIT} source ${1} | exec \"redir! > \" . g:colors_name . \".vimTheme | hi | redir END\" | quit"
+	base=${1%.*}
+	$PRG -u NONE -U NONE -c "syntax on |${INIT} source ${1} | exec \"redir! > ${base}.vimTheme | hi | redir END\" | quit"
 	shift
 done
