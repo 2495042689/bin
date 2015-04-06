@@ -6,19 +6,19 @@ BGTYPE=""
 FLAGS="-u NONE -U NONE -N"
 
 while getopts "lds" opt ; do
-    case $opt in
-        l)
-            INIT=" set bg=light |"
-            BGTYPE="light"
-            ;;
-        d)
-            INIT=" set bg=dark |"
-            BGTYPE="dark"
-            ;;
+	case $opt in
+		l)
+			INIT=" set bg=light |"
+			BGTYPE="light"
+			;;
+		d)
+			INIT=" set bg=dark |"
+			BGTYPE="dark"
+			;;
 		s)
 			FLAGS=""
 			;;
-    esac
+	esac
 done
 
 shift $((OPTIND - 1))
