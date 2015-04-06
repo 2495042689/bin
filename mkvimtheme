@@ -32,6 +32,6 @@ while [ $# -gt 0 ] ; do
 	esac
 	base=${1%.*}
 	[ -n "$BGTYPE" ] && base="${base}-${BGTYPE}"
-	$PRG $FLAGS -c "syntax on |${INIT} source ${1} | exec \"redir! > ${base}.vimTheme | hi | redir END\" | quit"
+	$PRG $FLAGS -c "syntax on |${INIT} source ${1} | exec \"redir! > ${base}.vimTheme | silent hi | redir END\" | quit"
 	shift
 done
