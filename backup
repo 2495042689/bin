@@ -17,7 +17,7 @@ do
 			filelist="Library/Services"
 			;;
 		dots)
-			filelist=".coordinates .github_api_token .mpoprc .msmtprc .procmailrc .eatrc .castgetrc"
+			filelist=".coordinates .github_api_token .mpoprc .msmtprc .procmailrc .eatrc .castgetrc .bcrc"
 			;;
 		dirs)
 			filelist=".local .config .mutt .vim .mpd .themes .fonts .icons .aria2 .irssi .pal .FontForge .ssh .w3m .elinks .lftp .ncmpcpp .audacity-data .audacity-files"
