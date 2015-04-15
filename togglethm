@@ -11,18 +11,14 @@ else
 	case "$curbg" in
 		light)
 			nextbg=dark
-			# itermkey="("
 			;;
 		dark)
 			nextbg=light
-			# itermkey=")"
 			;;
 	esac
 fi
 
 printf "%s" "$nextbg" > "$BGTYPE"
-
-# osascript -e 'tell application "System Events" to keystroke "'$itermkey'" using {command down,control down}'
 
 if [ "$nextbg" != "$curbg" ] ; then
 	echo ":colorscheme bubblegum-256-${nextbg}" | tmux load-buffer -
@@ -44,4 +40,3 @@ if [ "$nextbg" != "$curbg" ] ; then
 	done
 	tmux delete-buffer
 fi
-
