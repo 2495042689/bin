@@ -12,5 +12,5 @@ tmux set-buffer "j${LF}r" \; paste-buffer -t msg.2 \; delete-buffer
 tmux new-window -c "${pdir}"/server -n watch "node --harmony start.js"\; split-window -h -c "${pdir}" "gulp watch"
 tmux new-window -c "${pdir}" -n js "e -O2 \$(v -s atime -l proj col jsx\\?\\\$ | tail -r -n 10)"
 tmux new-window -c "${pdir}" -n less "e -O3 \$(v -s atime -l proj col less\\\$ | tail -r -n 5)"
-tmux select-window -t js
+tmux select-window -t msg
 tmux kill-window -t tmp
