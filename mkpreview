@@ -10,7 +10,7 @@ if (args.length < 1) {
 
 args.forEach(function (fileName) {
 	var htmlFileName = fileName + ".html",
-		vim = spawn("vim", ["-c", "run syntax/2html.vim | wqa", fileName]);
+		vim = spawn("vim", ["-c", "let g:html_expand_tabs = 0 | run syntax/2html.vim | wqa", fileName]);
 	vim.on("close", function (code) {
 		if (code !== 0) {
 			process.exit(1);
