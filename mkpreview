@@ -17,7 +17,7 @@ args.forEach(function (fileName) {
 		}
 		var data = fs.readFileSync(htmlFileName, "utf8");
 		fs.unlinkSync(htmlFileName);
-		data = data.replace(/[^]*<pre\s[^>]+>([^]*)<\/pre>[^]*/, "$1");
+		data = data.replace(/[^]*<pre\s[^>]+>\n([^]*)<\/pre>[^]*/, "$1");
 		data = data.replace(/<span\s+class="([^"]+)">([^<]+)<\/span>/g, function (match, p1, p2) {
 			return "%{" + p1 + "}(" + p2.replace(/\)/g, "&rpar;") + ")";
 		});
