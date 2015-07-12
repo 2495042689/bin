@@ -11,7 +11,7 @@ do
 			filelist="$filelist prefs/com.apple.symbolichotkeys.plist prefs/pbs.plist prefs/fs-uae prefs/nsmb.conf"
 			;;
 		support)
-			filelist="support/Quicksilver support/Chromium/Default"
+			filelist="support/Quicksilver"
 			;;
 		services)
 			filelist="Library/Services"

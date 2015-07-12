@@ -126,7 +126,7 @@ while [ $# -gt 0 ] ; do
 					*.mp3|*.m3u|*.ogg)
 						ap "$1"
 						;;
-					*.mp4|*.avi|*.mpg|*.mpeg|*.mkv|*.webm|*.ogv|*.f4v|*.m2ts)
+					*.mp4|*.avi|*.mpg|*.mpeg|*.mkv|*.webm|*.ogv|*.f4v|*.m2ts|*.ts)
 						vp "$1"
 						;;
 					*.webarchive)
