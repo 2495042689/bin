@@ -40,10 +40,7 @@ while [ $# -gt 0 ] ; do
 			application/x-lha)
 				lha x "$1"
 				;;
-			application/postscript)
-				dr "$1"
-				;;
-			application/pdf)
+			application/postscript|application/pdf)
 				dr "$1"
 				;;
 			application/zip)
@@ -93,7 +90,7 @@ while [ $# -gt 0 ] ; do
 					*.7z)
 						7z x "$1"
 						;;
-					*.chm)
+					*.chm|*.epub)
 						open "$1"
 						;;
 					*.nzb)
