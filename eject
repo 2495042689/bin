@@ -1,3 +1,3 @@
 #! /bin/sh
 
-find /Volumes -depth 1 -not -name "Macintosh HD" | (peco --query "$*" 2> /dev/null || echo "No mounted volumes." 1>&2) | xargs -E "" -n 1 diskutil unmount
+find /Volumes -depth 1 -not -name "Macintosh HD" 2> /dev/null | peco --query "$*" | xargs -E "" -n 1 diskutil unmount
