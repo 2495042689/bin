@@ -1,22 +1,21 @@
 #! /bin/sh
 
 V_VIM=${V_VIM:-${EDITOR:-vim}}
-DB_PATH="$XDG_DATA_HOME"/edit.z
+DB_PATH="$XDG_DATA_HOME"/edit.json
 
 pick_latest=1
 choose_index=0
 list_files=0
 index=1
-sortby=frecency
 
-while getopts 'hlacpi:s:' opt ; do
+while getopts 'hlacpi:' opt ; do
 	case $opt in
 		h)
-			printf "%s [-hlacp] [-i INDEX] [-s SORT_BY] [REGEX]\n" "${0##*/}"
+			printf "%s [-hlacp] [-i INDEX] [REGEX]\n" "${0##*/}"
 			exit
 			;;
 		p)
-			Zp "$DB_PATH"
+			zp -i "$DB_PATH"
 			exit
 			;;
 		l)
@@ -31,16 +30,13 @@ while getopts 'hlacpi:s:' opt ; do
 		i)
 			index=$OPTARG
 			;;
-		s)
-			sortby=$OPTARG
-			;;
 	esac
 done
 
 shift $((OPTIND - 1))
 tmpout=$(mktemp /tmp/v.XXXX)
 
-num=$(Z -i "$DB_PATH" -s "$sortby" "$@" | tee "$tmpout" | wc -l)
+num=$(fdb -i "$DB_PATH" -q "(?i)$@" | tee "$tmpout" | wc -l)
 
 if [ $list_files -eq 1 ] ; then
 	sed "s!^~!$HOME!" "$tmpout" | tail -r

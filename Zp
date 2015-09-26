@@ -1,5 +1,0 @@
-#! /bin/sh
-
-DB_PATH=${1:-${Z_DATA_FILE:-~/.z}}
-
-Z -i "$DB_PATH" | stest -ve | tr '\n' '\0' | xargs -0 -n 1 Z -i "$DB_PATH" -d
