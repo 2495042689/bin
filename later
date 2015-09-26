@@ -1,16 +1,16 @@
 #! /bin/sh
 
-URL_DB="$SHARE_ROOT"/urls.Z
+URL_DB="$SHARE_ROOT"/urls.json
 verb=$1
 shift
 
 case "$verb" in
 	add)
-		Z -i "$URL_DB" -a "$@" ;;
+		fdb -i "$URL_DB" -a "$@" ;;
 	rm|remove)
-		Z -i "$URL_DB" -d "$@" ;;
+		fdb -i "$URL_DB" -d "$@" ;;
 	ls|list)
-		Z -i "$URL_DB" "$@" | tail -r;;
+		fdb -i "$URL_DB" -q "(?i)$@" | tail -r;;
 	*)
 		exit 1 ;;
 esac
