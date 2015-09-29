@@ -1,6 +1,6 @@
 #! /bin/sh
 
-URL_DB="$SHARE_ROOT"/urls.json
+URL_DB="$XDG_DATA_HOME"/urls.json
 verb=$1
 shift
 

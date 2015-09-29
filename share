@@ -1,6 +1,6 @@
 #! /bin/sh
 
-dst=/mnt/livebox/data
+dst=$SHARE_ROOT
 trg=$(hostname -s)
 cmd=$1
 shift

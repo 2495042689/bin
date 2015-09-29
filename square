@@ -2,7 +2,7 @@
 
 case "$1" in
 	on)
-		sparse attach /mnt/livebox/data/square.sparseimage ;;
+		sparse attach ${SHARE_ROOT}/square.sparseimage ;;
 	off)
 		sparse detach square ;;
 esac
