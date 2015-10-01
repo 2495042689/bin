@@ -6,7 +6,7 @@ shift
 
 case "$verb" in
 	add)
-		fdb -i "$URL_DB" -a "$@" ;;
+		fdb -i "$URL_DB" -u -a "$@" ;;
 	rm|remove)
 		fdb -i "$URL_DB" -d "$@" ;;
 	ls|list)
