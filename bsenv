@@ -7,9 +7,9 @@ LF="
 
 pgrep -x mongod > /dev/null 2>&1 || mongod -f /usr/local/etc/mongod.conf
 tmux rename-window tmp
-tmux new-window -n msg "m" \; split-window -hd -c "#{pane_current_path}" "nb"
+tmux new-window -n msg "m" \; split-window -t msg -hd -c "#{pane_current_path}" "nb"
 tmux set-buffer "j${LF}r" \; paste-buffer -t msg.2 \; delete-buffer
-tmux new-window -c "${pdir}"/server -n watch "node start.js"\; split-window -h -c "${pdir}" "gulp watch"
+tmux new-window -c "${pdir}"/server -n watch "node start.js"\; split-window -t watch -h -c "${pdir}" "gulp watch"
 tmux new-window -c "${pdir}" -n js "e -O2 \$(v -l proj col jsx\\?\\\$ | tail -r -n 10)"
 tmux new-window -c "${pdir}" -n less "e -O3 \$(v -l proj col less\\\$ | tail -r -n 5)"
 tmux select-window -t msg
