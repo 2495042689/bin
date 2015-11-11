@@ -1,8 +1,0 @@
-#! /bin/sh
-
-case "$1" in
-	on)
-		sparse attach ${SHARE_ROOT}/square.sparseimage ;;
-	off)
-		sparse detach square ;;
-esac

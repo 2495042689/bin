@@ -10,7 +10,7 @@ case "$verb" in
 	rm|remove)
 		fdb -i "$URL_DB" -d "$@" ;;
 	ls|list)
-		fdb -i "$URL_DB" -q "(?i)$@" | tail -r;;
+		fdb -s atime -i "$URL_DB" -q "(?i)$@" | tail -r;;
 	*)
 		exit 1 ;;
 esac
