@@ -1,0 +1,8 @@
+#! /bin/sh
+
+inp=$1
+out=${inp%.*}.epub
+css="$XDG_DATA_HOME"/epub.css
+shift
+
+pandoc "$@" -S -f markdown -t epub --epub-stylesheet "$css" --highlight-style monochrome -o "$out" "$inp"
