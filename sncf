@@ -5,8 +5,8 @@
 import sys
 from getopt import getopt
 
-start_index = 7
-stop_index = 13
+start_index = 11
+stop_index = 17
 
 options, args = getopt(sys.argv[1:], 'i:I:')
 for opt, val in options:
@@ -18,10 +18,10 @@ for opt, val in options:
 for filename in args:
     with open(filename, 'rb') as input:
         with open('output_{}'.format(filename), 'wb') as output:
-            count = 0
+            pos = 0
             for line in input:
                 if line.find(b'/Subtype /Image') != -1:
-                    count = count + 1
-                    if count > start_index and count < stop_index:
+                    pos = pos + 1
+                    if pos > start_index and pos < stop_index:
                         line = line.replace(b'/Subtype /Image', b'/Subtype /Foo')
                 output.write(line)

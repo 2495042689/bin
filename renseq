@@ -1,12 +1,12 @@
 #! /bin/sh
 
-cmd='mv'
+cmd="mv"
 counter=1
 
 while getopts "cs:" opt ; do
     case $opt in
         c)
-            cmd='cp'
+            cmd="cp"
             ;;
         s)
             counter=$OPTARG
@@ -40,17 +40,17 @@ for item in "$@" ; do
         mime_type=$(file -b --mime-type $item)
         case $mime_type in
             image/png)
-                ext='png';;
+                ext="png";;
             image/jpeg)
-                ext='jpg';;
+                ext="jpg";;
             image/gif)
-                ext='gif';;
+                ext="gif";;
             image/x-ms-bmp)
-                ext='bmp';;
+                ext="bmp";;
             image/tiff)
-                ext='tiff';;
+                ext="tiff";;
             *)
-                ext='unk';;
+                ext="unkown";;
         esac
         target="$full_parent/$basename$num.$ext"
     fi
