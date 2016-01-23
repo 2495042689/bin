@@ -18,7 +18,7 @@ FORMULA_NAME = "formula-{:03d}.svg"
 OUTPUT_DIR = gettempdir()
 DVI_PATH = join(OUTPUT_DIR, "standalone.dvi")
 CONTENT_NAME = "content.opf"
-DEPTH_CORRECTION_FACTOR = 1/1.2
+DEPTH_CORRECTION_FACTOR = 1.0
 SVG_SCALING_FACTOR = 1.3
 index = 1
 
