@@ -1,0 +1,94 @@
+#! /usr/bin/env python3
+
+"""
+Converts spans of TeX formulas from *pandoc* generated EPUBs to SVG
+"""
+
+import os
+import sys
+import re
+from tempfile import gettempdir
+from xml.dom.minidom import parseString, Node
+from os.path import join, splitext
+from zipfile import ZipFile
+from subprocess import Popen, check_output, PIPE, STDOUT
+
+LIBGS_PATH = "/usr/local/Cellar/ghostscript/9.16/lib/libgs.dylib"
+FORMULA_NAME = "formula-{:03d}.svg"
+OUTPUT_DIR = gettempdir()
+DVI_PATH = join(OUTPUT_DIR, "standalone.dvi")
+CONTENT_NAME = "content.opf"
+DEPTH_CORRECTION_FACTOR = 1/1.2
+SVG_SCALING_FACTOR = 1.3
+index = 1
+
+def makesvg(formula):
+    global index
+    formula = re.sub(r"\$\$([^$]+)\$\$", r"$\displaystyle \1$", formula)
+    proc = Popen(["latex", "-output-directory", OUTPUT_DIR], stdin=PIPE, stdout=PIPE, universal_newlines=True)
+    (stdout, _) = proc.communicate(input=r"\documentclass[preview]{{standalone}}\usepackage{{amsmath}}\begin{{document}}{}\end{{document}}".format(formula))
+    if proc.returncode != 0:
+        print(stdout)
+        sys.exit(1)
+    output = check_output(["dvisvgm", "--libgs={}".format(LIBGS_PATH), "-n", "-c", str(SVG_SCALING_FACTOR), DVI_PATH], universal_newlines=True, stderr=STDOUT)
+    depth = float(re.sub(".*depth=([^a-z]+).*", r"\1", output, flags=re.DOTALL))
+    os.rename("standalone.svg", FORMULA_NAME.format(index))
+    os.remove(DVI_PATH)
+    return depth
+
+def main(args):
+    global index
+    for epub in args:
+        queue = []
+        zpin = ZipFile(epub, "r")
+        (base, ext) = splitext(epub)
+        out = "{}-svgmath{}".format(base, ext)
+        zpout = ZipFile(out, "w")
+        opf = parseString(zpin.read(CONTENT_NAME))
+        manifest = opf.getElementsByTagName("manifest")[0]
+        for fp in zpin.namelist():
+            oldindex = index
+            dom = None
+            if re.search(r"\.xhtml$", fp) is not None:
+                with zpin.open(fp, "r") as f:
+                    dom = parseString(f.read())
+                    spans = dom.getElementsByTagName("span")
+                    for sp in spans:
+                        classes = sp.getAttribute("class")
+                        if "math" in classes:
+                            if sp.firstChild != sp.lastChild or sp.firstChild.nodeType != Node.TEXT_NODE:
+                                continue
+                            formula = sp.firstChild.nodeValue
+                            print(formula)
+                            depth = makesvg(formula)
+                            img = dom.createElement("img")
+                            svg = FORMULA_NAME.format(index)
+                            index = index + 1
+                            img.setAttribute("class", sp.getAttribute("class"))
+                            img.setAttribute("src", join("media", svg))
+                            img.setAttribute("alt", formula)
+                            if "inline" in classes:
+                                img.setAttribute("style", "vertical-align: -{}pt".format(depth*DEPTH_CORRECTION_FACTOR))
+                            sp.parentNode.replaceChild(img, sp)
+            if oldindex < index:
+                zpout.writestr(fp, dom.toxml())
+            elif fp != CONTENT_NAME:
+                zpout.writestr(fp, zpin.read(fp))
+        zpin.close()
+        for i in range(1, index):
+            svg = FORMULA_NAME.format(i)
+            href = join("media", svg)
+            item = opf.createElement("item")
+            item.setAttribute("id", svg.replace(".", "_"))
+            item.setAttribute("href", href)
+            item.setAttribute("media-type", "image/svg+xml")
+            manifest.insertBefore(opf.createTextNode("\n    "), manifest.lastChild)
+            manifest.insertBefore(item, manifest.lastChild)
+            zpout.write(svg, href)
+            os.remove(svg)
+        zpout.writestr(CONTENT_NAME, opf.toxml())
+        zpout.close()
+        index = 1
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
