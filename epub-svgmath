@@ -16,23 +16,31 @@ from subprocess import Popen, check_output, PIPE, STDOUT
 LIBGS_PATH = "/usr/local/Cellar/ghostscript/9.16/lib/libgs.dylib"
 FORMULA_NAME = "formula-{:03d}.svg"
 OUTPUT_DIR = gettempdir()
-DVI_PATH = join(OUTPUT_DIR, "standalone.dvi")
+JOB_NAME = "formula"
+DVI_PATH = join(OUTPUT_DIR, "{}.dvi".format(JOB_NAME))
 CONTENT_NAME = "content.opf"
 DEPTH_CORRECTION_FACTOR = 1.0
 SVG_SCALING_FACTOR = 1.3
+LATEX_TEMPLATE = r"""
+\documentclass[preview]{standalone}
+\usepackage{amsmath}
+\begin{document}
+% content
+\end{document}
+""".strip()
 index = 1
 
 def makesvg(formula):
     global index
     formula = re.sub(r"\$\$([^$]+)\$\$", r"$\displaystyle \1$", formula)
-    proc = Popen(["latex", "-output-directory", OUTPUT_DIR], stdin=PIPE, stdout=PIPE, universal_newlines=True)
-    (stdout, _) = proc.communicate(input=r"\documentclass[preview]{{standalone}}\usepackage{{amsmath}}\begin{{document}}{}\end{{document}}".format(formula))
+    proc = Popen(["latex", "-output-directory", OUTPUT_DIR, "-jobname", JOB_NAME], stdin=PIPE, stdout=PIPE, universal_newlines=True)
+    (stdout, _) = proc.communicate(input=LATEX_TEMPLATE.replace("% content", formula, 1))
     if proc.returncode != 0:
         print(stdout)
         sys.exit(1)
     output = check_output(["dvisvgm", "--libgs={}".format(LIBGS_PATH), "-n", "-c", str(SVG_SCALING_FACTOR), DVI_PATH], universal_newlines=True, stderr=STDOUT)
     depth = float(re.sub(".*depth=([^a-z]+).*", r"\1", output, flags=re.DOTALL))
-    os.rename("standalone.svg", FORMULA_NAME.format(index))
+    os.rename("{}.svg".format(JOB_NAME), FORMULA_NAME.format(index))
     os.remove(DVI_PATH)
     return depth
 
