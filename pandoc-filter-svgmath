@@ -17,7 +17,6 @@ SVG_SCALING_FACTOR = 1.3
 LATEX_TEMPLATE = r"""
 \documentclass[preview]{standalone}
 \usepackage{amsmath}
-% \usepackage{mathpazo}
 \begin{document}
 % content
 \end{document}
