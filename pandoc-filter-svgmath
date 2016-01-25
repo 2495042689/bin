@@ -1,0 +1,55 @@
+#! /usr/bin/env python3
+
+"""
+Pandoc filter to process embedded TeX math into SVG images
+"""
+
+import os
+import sys
+import re
+from tempfile import gettempdir
+from os.path import join
+from pandocfilters import toJSONFilter, attributes, Image, Str
+from subprocess import Popen, check_output, PIPE, STDOUT
+
+TEMP_DIR = gettempdir()
+NAME_TEMPLATE = "formula-{:03d}"
+SVG_SCALING_FACTOR = 1.3
+LATEX_TEMPLATE = r"""
+\documentclass[preview]{standalone}
+\usepackage{amsmath}
+% \usepackage{mathpazo}
+\begin{document}
+% content
+\end{document}
+""".strip()
+index = 1
+
+def svgmath(key, value, fmt, meta):
+    global index
+    if key == "Math":
+        [sub, txt] = value
+        display = sub["t"] == "DisplayMath"
+        formula = "${}{}$".format(r"\displaystyle " if display else "", txt)
+        name = NAME_TEMPLATE.format(index)
+        dvi = join(TEMP_DIR, "{}.dvi".format(name))
+        svg = join(TEMP_DIR, "{}.svg".format(name))
+        proc = Popen(["latex", "-output-directory", TEMP_DIR, "-jobname", name],
+                     stdin=PIPE, stdout=PIPE, universal_newlines=True)
+        (stdout, _) = proc.communicate(input=LATEX_TEMPLATE.replace("% content", formula, 1))
+        if proc.returncode != 0:
+            print(stdout, file=sys.stderr)
+            sys.exit(1)
+        output = check_output(["dvisvgm", "-n", "-o", svg, "-c", str(SVG_SCALING_FACTOR), dvi],
+                              universal_newlines=True, stderr=STDOUT)
+        os.remove(dvi)
+        depth = float(re.sub(".*depth=([^a-z]+).*", r"\1", output, flags=re.DOTALL))
+        attrs = {"classes": ["math"]}
+        if not display:
+            attrs["style"] = "vertical-align: -{}pt".format(depth)
+        attrs["classes"].append("display" if display else "inline")
+        index = index + 1
+        return Image(attributes(attrs), [Str(txt)], [svg, ""])
+
+if __name__ == "__main__":
+   toJSONFilter(svgmath)
