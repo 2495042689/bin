@@ -4,7 +4,6 @@
 Pandoc filter to process embedded TeX math into SVG images
 """
 
-import os
 import sys
 import re
 from tempfile import gettempdir
@@ -32,17 +31,16 @@ def svgmath(key, value, fmt, meta):
         display = sub["t"] == "DisplayMath"
         formula = "${}{}$".format(r"\displaystyle " if display else "", txt)
         name = NAME_TEMPLATE.format(index)
-        dvi = join(TEMP_DIR, "{}.dvi".format(name))
-        svg = join(TEMP_DIR, "{}.svg".format(name))
         proc = Popen(["latex", "-output-directory", TEMP_DIR, "-jobname", name],
                      stdin=PIPE, stdout=PIPE, universal_newlines=True)
         (stdout, _) = proc.communicate(input=LATEX_TEMPLATE.replace("% content", formula, 1))
         if proc.returncode != 0:
             print(stdout, file=sys.stderr)
             sys.exit(1)
+        dvi = join(TEMP_DIR, "{}.dvi".format(name))
+        svg = join(TEMP_DIR, "{}.svg".format(name))
         output = check_output(["dvisvgm", "-n", "-o", svg, "-c", str(SVG_SCALING_FACTOR), dvi],
                               universal_newlines=True, stderr=STDOUT)
-        os.remove(dvi)
         depth = float(re.sub(".*depth=([^a-z]+).*", r"\1", output, flags=re.DOTALL))
         attrs = {"classes": ["math"]}
         if not display:
