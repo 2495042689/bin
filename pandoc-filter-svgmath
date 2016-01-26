@@ -48,7 +48,7 @@ def svgmath(key, value, fmt, meta):
             sys.exit(1)
         dvi = join(TEMP_DIR, "{}.dvi".format(name))
         svg = join(TEMP_DIR, "{}.svg".format(name))
-        output = check_output(["dvisvgm", "-n", "-o", svg, "-c", str(SVG_SCALING_FACTOR), dvi],
+        output = check_output(["dvisvgm", "-e", "-n", "-o", svg, "-c", str(SVG_SCALING_FACTOR), dvi],
                               universal_newlines=True, stderr=STDOUT)
         depth = float(re.sub(".*depth=([^a-z]+).*", r"\1", output, flags=re.DOTALL))
         attrs = {"classes": ["math"]}
