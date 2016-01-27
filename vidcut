@@ -20,8 +20,8 @@ ext=${input##*.}
 while [ $# -gt 0 ] ; do
     begin=$1
     shift
-    duration=$1
-    ffmpeg -i "$input" -c copy -ss "$begin" -t "$duration" "${base}-${cnt}.$ext"
+    end=$1
+    ffmpeg -i "$input" -c copy -ss "$begin" -to "$end" "${base}-$(printf '%03d' $cnt).$ext"
     shift
     cnt=$((cnt + 1))
 done
