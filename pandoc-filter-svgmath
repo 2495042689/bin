@@ -40,9 +40,12 @@ def svgmath(key, value, fmt, meta):
                     return img
         formula = "${}{}$".format(r"\displaystyle " if display else "", txt)
         formula = re.sub(r".*(\\begin{align\*?}.*\\end{align\*?}).*", r"\1", formula)
+        doc = LATEX_TEMPLATE.replace("% content", formula, 1)
+        if display:
+            doc = doc.replace("[preview]", "[varwidth=9cm, preview]", 1)
         proc = Popen(["latex", "-output-directory", TEMP_DIR, "-jobname", name],
                      stdin=PIPE, stdout=PIPE, universal_newlines=True)
-        (stdout, _) = proc.communicate(input=LATEX_TEMPLATE.replace("% content", formula, 1))
+        (stdout, _) = proc.communicate(input=doc)
         if proc.returncode != 0:
             print(stdout, file=sys.stderr)
             sys.exit(1)

@@ -23,10 +23,6 @@ else:
 with open(path, "w") as f:
     f.write(bgtype)
 
-for pt in glob("/dev/ttys???"):
-    with open(pt, "w") as f:
-        f.write("\x1b]50;SetProfile=home-{}\x07".format(bgtype))
-
 for sp in glob("{}*/0".format(join(os.getenv("TMPDIR"), "nvim"))):
     nvim = neovim.attach("socket", path=sp)
     nvim.command("colorscheme bubblegum-256-{}".format(bgtype))
