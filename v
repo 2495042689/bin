@@ -1,6 +1,6 @@
 #! /bin/sh
 
-V_VIM=${V_VIM:-${EDITOR:-vim}}
+V_VIM=${V_VIM:-${EDITOR:-nvim}}
 DB_PATH="$XDG_DATA_HOME"/edit.json
 
 pick_latest=1

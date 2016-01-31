@@ -31,7 +31,7 @@ def svgmath(key, value, fmt, meta):
         [sub, txt] = value
         display = sub["t"] == "DisplayMath"
         name = NAME_TEMPLATE.format(index)
-        data = join(TEMP_DIR, "{}.bin".format(name))
+        data = join(TEMP_DIR, "{}.p".format(name))
         if isfile(data):
             with open(data, "rb") as f:
                 img = pickle.load(f)

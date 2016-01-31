@@ -1,42 +1,32 @@
-#! /bin/sh
+#! /usr/bin/env python3
 
-PATH="/usr/local/bin:${PATH}"
-BGTYPE="$HOME"/.bgtype
+import os
+import sys
+import neovim
+from glob import glob
+from os.path import join
 
-curbg=$(cat "$BGTYPE")
+path=join(os.getenv("HOME"), ".bgtype")
+bgtype = None
 
-if [ $# -gt 0 ] ; then
-	nextbg=$1
-else
-	case "$curbg" in
-		light)
-			nextbg=dark
-			;;
-		dark)
-			nextbg=light
-			;;
-	esac
-fi
+with open(path, "r") as f:
+    bgtype = f.read()
 
-printf "%s" "$nextbg" > "$BGTYPE"
+if bgtype == "dark":
+    bgtype = "light"
+elif bgtype == "light":
+    bgtype = "dark"
+else:
+    print("Invalid background type read from {}.", file=sys.stderr)
+    sys.exit(1)
 
-if [ "$nextbg" != "$curbg" ] ; then
-	echo ":colorscheme bubblegum-256-${nextbg}" | tmux load-buffer -
-	for sess in $(tmux list-sessions -F "#{session_id}") ; do
-		for win in $(tmux list-windows -t "$sess" -F "#{window_id}") ; do
-			for pane_pid in $(tmux list-panes -t "$win" -F "#{pane_id},#{pane_pid}") ; do
-				pane=${pane_pid%,*}
-				pid=${pane_pid#*,}
-				while [ -n "$pid" ] ; do
-					if ps -p $pid -o comm= | grep "^vim$" > /dev/null ; then
-						tmux paste-buffer -t "$pane"
-						pid=""
-					else
-						pid=$(pgrep -P $pid -n)
-					fi
-				done
-			done
-		done
-	done
-	tmux delete-buffer
-fi
+with open(path, "w") as f:
+    f.write(bgtype)
+
+for pt in glob("/dev/ttys???"):
+    with open(pt, "w") as f:
+        f.write("\x1b]50;SetProfile=home-{}\x07".format(bgtype))
+
+for sp in glob("{}*/0".format(join(os.getenv("TMPDIR"), "nvim"))):
+    nvim = neovim.attach("socket", path=sp)
+    nvim.command("colorscheme bubblegum-256-{}".format(bgtype))
