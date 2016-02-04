@@ -25,4 +25,4 @@ with open(path, "w") as f:
 
 for sp in glob("{}*/0".format(join(os.getenv("TMPDIR"), "nvim"))):
     nvim = neovim.attach("socket", path=sp)
-    nvim.command("colorscheme bubblegum-256-{}".format(bgtype))
+    nvim.command("colorscheme raven-{}".format(bgtype))
