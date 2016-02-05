@@ -17,7 +17,7 @@ TEMP_DIR = os.getenv("SVGMATH_ASSETS_DIR", gettempdir())
 NAME_TEMPLATE = "formula-{:03d}"
 SVG_SCALING_FACTOR = 1.3
 LATEX_TEMPLATE = r"""
-\documentclass[preview]{standalone}
+\documentclass[preview, border=1pt]{standalone}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 % \usepackage{newpxmath}
