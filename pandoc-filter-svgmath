@@ -20,7 +20,6 @@ LATEX_TEMPLATE = r"""
 \documentclass[preview, border=1pt]{standalone}
 \usepackage{amsmath}
 \usepackage{amsfonts}
-% \usepackage{newpxmath}
 \begin{document}
 % content
 \end{document}
