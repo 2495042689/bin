@@ -2,9 +2,10 @@
 
 SHELL=/usr/local/plan9/bin/rc
 TERM=dumb
+BROWSER=firefox
 mousescrollsize=5
 
-export SHELL TERM mousescrollsize
+export SHELL TERM BROWSER mousescrollsize
 
 pgrep -x plumber || 9 plumber
 
