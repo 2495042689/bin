@@ -3,6 +3,5 @@
 inp=$1
 shift
 out=${inp%.*}.epub
-css="$XDG_DATA_HOME"/epub.css
 
-pandoc -S -f markdown -t epub3 --filter pandoc-filter-svgmath --epub-stylesheet "$css" --highlight-style monochrome -o "$out" "$inp" "$@"
+pandoc -S -f markdown -t epub3 --filter pandoc-filter-svgmath --highlight-style monochrome -o "$out" "$inp" "$@"

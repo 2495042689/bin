@@ -20,7 +20,7 @@ do
 			filelist=".coordinates .github_api_token .mpoprc .msmtprc .procmailrc .eatrc .castgetrc .npmrc"
 			;;
 		dirs)
-			filelist=".local .config .mutt .vim .mpd .themes .fonts .icons .aria2 .irssi .pal .FontForge .ssh .w3m .elinks .lftp .ncmpcpp .audacity-data .audacity-files"
+			filelist=".local .config .pandoc .mutt .vim .mpd .themes .fonts .icons .aria2 .irssi .pal .FontForge .ssh .w3m .elinks .lftp .ncmpcpp .audacity-data .audacity-files"
 			;;
 		usenet)
 			filelist=".jnewsrc .usenet_id .usenet .slrn"
