@@ -1,15 +1,8 @@
 #! /bin/sh
 
 while [ $# -gt 0 ] ; do
-    pattern=$1
-    exact_match="$XDG_DOTFILES_DIR/$pattern"
-    if [ -e "$exact_match" ] ; then
-        exec e "$exact_match"
-    else
-        dots=$(find "$XDG_DOTFILES_DIR" -path "*/.git/*" -prune -o -type f -iname "${pattern}*" -print0 | xargs -0)
-        if [ -n "$dots" ] ; then
-            exec e $dots
-        fi
-    fi
+    dir="${XDG_ETC_DIR}/${1}"
+	results=$(find "$dir" -path "*/.git/*" -prune -o -type f -print0 | xargs -0)
+	[ -n "$results" ] && e $results
     shift
 done
