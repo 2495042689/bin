@@ -1,8 +1,7 @@
 #! /bin/sh
 
 while [ $# -gt 0 ] ; do
-    dir="${XDG_ETC_DIR}/${1}"
-	results=$(find "$dir" -path "*/.git/*" -prune -o -type f -print0 | xargs -0)
+	results=$(find "$XDG_ETC_DIR" -path "*/.git/*" -prune -o -path "*${1}*" -type f -print0 | xargs -0)
 	[ -n "$results" ] && e $results
     shift
 done
