@@ -1,10 +1,10 @@
 #! /bin/sh
 
 ext=${1##*.}
-lst=$(mktemp /tmp/video.XXXX)
+lst=$(mktemp concat.XXXX)
 
 while [ $# -gt 0 ] ; do
-    printf "file '%s'\n" "$PWD"/"$1" >> "$lst"
+    printf "file %s\n" "$1" >> "$lst"
     shift
 done
 
