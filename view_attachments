@@ -8,6 +8,8 @@ munpack -C "$tmp_dir"
 rename 's/^(.*)\.([^.]+)\.(\d+)$/$1.$3.$2/' "$tmp_dir"/*
 # Try to extract images from PPS documents
 find -L "$tmp_dir" -iname "*.pps" -exec ppsei {} +
+# Find and open documents
+find -EL "$tmp_dir" -iregex ".*\.(pdf|e?ps)" -exec dr {} +
 # Find and open images
 find -EL "$tmp_dir" -iregex '.*\.(jpe?g|png|gif|tif?f|bmp)' -exec iv {} +
 # Find and open movies

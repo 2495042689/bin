@@ -24,5 +24,8 @@ with open(path, "w") as f:
     f.write(bgtype)
 
 for sp in glob("{}*/0".format(join(os.getenv("TMPDIR"), "nvim"))):
-    nvim = neovim.attach("socket", path=sp)
-    nvim.command("colorscheme raven-{}".format(bgtype))
+    try:
+        nvim = neovim.attach("socket", path=sp)
+        nvim.command("colorscheme raven-{}".format(bgtype))
+    except:
+        pass
