@@ -6,7 +6,7 @@ if [ $# -eq 0 ] ; then
 fi
 
 draw_header=0
-font="Courier Prime 11"
+font="Courier Prime 10"
 header_font="DejaVu Sans 9"
 
 while getopts "Hf:F:" opt ; do
