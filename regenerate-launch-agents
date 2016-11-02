@@ -1,0 +1,7 @@
+#! /bin/sh
+
+LA_DIR="$HOME"/Library/LaunchAgents
+
+for json in "$LA_DIR"/*.js ; do
+	plutil -convert xml1 -o "${json%.*}".plist "$json"
+done
