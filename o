@@ -132,6 +132,9 @@ while [ $# -gt 0 ] ; do
 					*.emulecollection)
 						amule-emc "$1"
 						;;
+					*.sparseimage)
+						open "$1"
+						;;
 					*)
 						mime_encoding=$(file -L -b --mime-encoding "$1")
 						case $mime_encoding in
