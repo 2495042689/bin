@@ -112,7 +112,7 @@ while [ $# -gt 0 ] ; do
 					*.xpm)
 						iv "$1"
 						;;
-					*.mp3|*.m3u|*.ogg)
+					*.mp3|*.m3u|*.ogg|*.mpc)
 						ap "$1"
 						;;
 					*.mp4|*.avi|*.mpg|*.mpeg|*.mkv|*.webm|*.ogv|*.f4v|*.m2ts|*.ts)
