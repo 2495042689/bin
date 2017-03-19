@@ -7,4 +7,4 @@ if [ -z "$filetype" ] ; then
     exit 1
 fi
 
-brew list -v vim | grep "syntax/${filetype}.vim"
+find /usr/local/share/nvim/runtime/syntax | grep "syntax/${filetype}.vim"
