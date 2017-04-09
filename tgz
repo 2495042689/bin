@@ -1,13 +1,13 @@
-#! /bin/sh
+#! /bin/bash
 
-exclude=
+declare -a args
 
 while getopts "e:" opt ; do
-    case $opt in
-        e)
-            exclude="$OPTARG"
-            ;;
-    esac
+	case $opt in
+		e)
+			args+=("--exclude" "$OPTARG")
+			;;
+	esac
 done
 
 shift $((OPTIND - 1))
@@ -15,4 +15,4 @@ shift $((OPTIND - 1))
 name=$1
 shift
 
-tar -cvz --exclude "$exclude" -f "${name}.tgz" "$@"
+tar -cvz "${args[@]}" -f "${name}.tgz" "$@"
