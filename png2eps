@@ -1,0 +1,6 @@
+#! /bin/sh
+
+PNG=$1
+PBM=${PNG%.*}.pbm
+convert "$PNG" "$PBM"
+potrace "$PBM"
