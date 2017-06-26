@@ -12,7 +12,11 @@ done
 
 shift $((OPTIND - 1))
 
-name=$1
+dest=$1
 shift
 
-tar -cvz "${args[@]}" -f "${name}.tgz" "$@"
+cmd='-c'
+
+[ -e "$dest" ] && cmd='-u'
+
+tar "$cmd" -v "${args[@]}" -f "$dest" "$@"
