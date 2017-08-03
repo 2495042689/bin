@@ -45,7 +45,7 @@ num=$(fdb -i "$DB_PATH" -s "$sort_by" -q "(?i)$@" | tee "$tmpout" | wc -l)
 if [ $list_files -eq 1 ] ; then
 	sed "s!^~!$HOME!" "$tmpout" | tail -r
 elif [ $num -eq 0 ] ; then
-	if [ -n "$@" ] ; then
+	if [ $# -gt 0 ] ; then
 		printf "%s\n" "No matches." >&2
 	fi
 elif [ $pick_latest -eq 0 -o $num -eq 1 ] ; then
