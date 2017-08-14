@@ -8,27 +8,20 @@ from os.path import join
 
 path=join(os.getenv("HOME"), ".bgtype")
 bgtype = None
-preset = None
 
 with open(path, "r") as f:
     bgtype = f.read()
 
 if bgtype == "dark":
     bgtype = "light"
-    preset = "Raven Light"
 elif bgtype == "light":
     bgtype = "dark"
-    preset = "Raven Dark"
 else:
     print("Invalid background type read from {}.", file=sys.stderr)
     sys.exit(1)
 
 with open(path, "w") as f:
     f.write(bgtype)
-
-for pt in glob("/dev/ttys???"):
-    with open(pt, "w") as f:
-        f.write("\033]1337;SetColors=preset={}\a".format(preset))
 
 for sp in glob("{}*/0".format(join(os.getenv("TMPDIR"), "nvim"))):
     try:
