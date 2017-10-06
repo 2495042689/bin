@@ -1,7 +1,7 @@
 #! /bin/sh
 
 V_VIM=${V_VIM:-${EDITOR:-nvim}}
-DB_PATH="$XDG_DATA_HOME"/edit.json
+DB_PATH="$XDG_DATA_HOME"/edit.z
 
 pick_latest=1
 choose_index=0

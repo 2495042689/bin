@@ -3,7 +3,7 @@
 while [ $# -gt 0 ] ; do
 	if [ -e "$1" ]; then
 		mime_type=$(file -L -b --mime-type "$1")
-		fdb -i "$XDG_DATA_HOME"/open.json -a "$(realpath "$1")"
+		fdb -i "$XDG_DATA_HOME"/open.z -a "$(realpath "$1")"
 		case $mime_type in
 			inode/x-empty)
 				e "$1"
